@@ -1,0 +1,242 @@
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.sidebar {
+  width: 80px;
+  height: 100vh;
+  background: #ffffff;
+  color: #000000;
+  border-right: 1px solid #e5e7eb;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar:not(.collapsed) {
+  width: 260px;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.sidebar-header {
+  padding: 24px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  font-size: 34px;
+  min-width: 34px;
+}
+
+.logo h2 {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+nav {
+  flex: 1;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #000000;
+  transition: all .25s ease;
+  position: relative;
+}
+
+/* Hover */
+
+.menu:hover:not(.active) {
+  background: #1f2937;
+  color: #ffffff;
+}
+
+.menu:hover:not(.active) .icon {
+  color: #ffffff;
+}
+
+/* Active */
+
+.menu.active {
+  background: #ffffff;
+  color: #000000;
+  border-left: 4px solid #000000;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.menu.active .icon {
+  color: #000000;
+}
+
+/* ===========================
+   ICON
+=========================== */
+
+.icon {
+  min-width: 30px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: inherit;
+  transition: all .3s ease;
+}
+
+/* ===========================
+   TEXT
+=========================== */
+
+.menu span:last-child {
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 500;
+  transition: opacity .25s ease;
+}
+
+.sidebar.collapsed .menu {
+  justify-content: center;
+}
+
+.sidebar.collapsed .menu span:last-child {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+.sidebar-footer {
+  padding: 12px 10px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* ===========================
+   TOOLTIP
+=========================== */
+
+.sidebar.collapsed .menu::after {
+
+  content: attr(data-title);
+
+  position: absolute;
+
+  left: 88px;
+
+  background: #111827;
+
+  color: white;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  white-space: nowrap;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: .2s;
+
+  box-shadow: 0 10px 20px rgba(0,0,0,.25);
+}
+
+.sidebar.collapsed .menu:hover::after {
+  opacity: 1;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 20px;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width:768px){
+
+.sidebar{
+
+    position: fixed;
+
+    left: -260px;
+
+    width: 260px;
+
+    z-index: 1000;
+
+    transition: left .3s ease;
+}
+
+.sidebar.mobile-open{
+
+    left:0;
+}
+
+.sidebar.collapsed{
+
+    width:260px;
+}
+
+.sidebar.collapsed .menu{
+
+    justify-content:flex-start;
+}
+
+.sidebar.collapsed .menu span:last-child{
+
+    width:auto;
+
+    opacity:1;
+}
+
+.sidebar.collapsed .menu::after{
+
+    display:none;
+}
+
+}

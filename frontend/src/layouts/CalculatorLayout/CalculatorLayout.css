@@ -1,0 +1,11 @@
+.calculator-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.calculator-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}

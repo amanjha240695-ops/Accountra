@@ -1,0 +1,26 @@
+.popular {
+  padding: 80px 20px;
+  background: white;
+}
+
+.popular h2 {
+  text-align: center;
+  font-size: 40px;
+  color: #0f172a;
+}
+
+.popular p {
+  text-align: center;
+  color: #64748b;
+  margin: 20px auto 50px;
+  max-width: 600px;
+}
+
+.calculator-grid {
+  max-width: 1200px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 30px;
+}
