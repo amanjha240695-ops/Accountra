@@ -1,0 +1,267 @@
+/* ===========================
+   INTEREST CONTAINER
+=========================== */
+
+.interest-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.interest-container h1 {
+  text-align: center;
+  color: #111827;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+/* ===========================
+   FORM
+=========================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.calculate-btn,
+.reset-btn {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.calculate-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.calculate-btn:hover {
+  background: #1d4ed8;
+}
+
+.reset-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.reset-btn:hover {
+  background: #dc2626;
+}
+
+/* ===========================
+   RESULT CARD
+=========================== */
+
+.result-card {
+  margin-top: 35px;
+  background: #f9fafb;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.result-card h2 {
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-row span:first-child {
+  color: #6b7280;
+}
+
+.result-row span:last-child {
+  font-weight: 600;
+  color: #111827;
+}
+
+.result-row.total {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ===========================
+   RESULT BUTTONS
+=========================== */
+
+.result-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.result-buttons button {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.copy-btn {
+  background: #2563eb;
+}
+
+.copy-btn:hover {
+  background: #1d4ed8;
+}
+
+.pdf-btn {
+  background: #059669;
+}
+
+.pdf-btn:hover {
+  background: #047857;
+}
+
+.print-btn {
+  background: #7c3aed;
+}
+
+.print-btn:hover {
+  background: #6d28d9;
+}
+
+.share-btn {
+  background: #ea580c;
+}
+
+.share-btn:hover {
+  background: #c2410c;
+}
+
+/* ===========================
+   HISTORY
+=========================== */
+
+.history-card {
+  margin-top: 35px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.history-header h2 {
+  color: #111827;
+}
+
+.clear-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #dc2626;
+}
+
+.history-item {
+  padding: 15px 0;
+}
+
+.history-item p {
+  margin: 6px 0;
+  color: #374151;
+}
+
+.history-item hr {
+  margin-top: 15px;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 768px) {
+  .interest-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .result-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .result-buttons {
+    flex-direction: column;
+  }
+
+  .history-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}

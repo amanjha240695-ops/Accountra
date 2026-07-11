@@ -1,4 +1,3 @@
-// GSTUtils.js
 
 // -----------------------------
 // Indian Currency Formatter
