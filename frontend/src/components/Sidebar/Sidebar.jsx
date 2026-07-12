@@ -24,6 +24,7 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "Loan", icon: <FaUniversity />, path: "/calculators/loan" },
     { name: "Interest", icon: <FaChartLine />, path: "/calculators/interest" },
     { name: "Percentage", icon: <FaPercentage />, path: "/calculators/percentage" },
+    { name: "SIP", icon: <FaChartLine />, path: "/calculators/sip" },
     { name: "TDS", icon: <FaMoneyCheckAlt />, path: "/calculators/tds" },
     { name: "Income Tax", icon: <FaFileInvoiceDollar />, path: "/calculators/income-tax" },
   ];

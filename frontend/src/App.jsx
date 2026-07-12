@@ -1,8 +1,14 @@
 import React from "react";
 import AppRoutes from "./routes/AppRoutes";
+import Footer from "./components/Footer/Footer";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <>
+      <AppRoutes />
+      <Footer />
+    </>
+  );
 }
 
 export default App;

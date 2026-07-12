@@ -11,16 +11,18 @@ import CalculatorLayout from "../layouts/CalculatorLayout/CalculatorLayout";
 
 // Calculator imports
 import GST from "../calculators/GST/GST";
+import Billing from "../calculators/Billing/Billing";
+import BalanceSheet from "../calculators/BalanceSheet/BalanceSheet";
 import EMI from "../calculators/EMI/EMI";
 import Loan from "../calculators/Loan/Loan";
 import Interest from "../calculators/Interest/Interest";
-import Percentage from "../calculators/Percentage/Percentage";
-import Discount from "../calculators/Discount/Discount";
+import SIP from "../calculators/SIP/SIP";
 import Salary from "../calculators/Salary/Salary";
 import TDS from "../calculators/TDS/TDS";
 import IncomeTax from "../calculators/IncomeTax/IncomeTax";
 import Depreciation from "../calculators/Depreciation/Depreciation";
 import ProfitLoss from "../calculators/ProfitLoss/ProfitLoss";
+import Percentage from "../calculators/Percentage/Percentage";
 
 const AppRoutes = () => {
   return (
@@ -80,10 +82,19 @@ const AppRoutes = () => {
         />
 
         <Route
+          path="/calculators/sip"
+          element={
+            <CalculatorLayout>
+              <SIP />
+            </CalculatorLayout>
+          }
+        />
+
+        <Route
           path="/calculators/discount"
           element={
             <CalculatorLayout>
-              <Discount />
+              <SIP />
             </CalculatorLayout>
           }
         />
@@ -129,6 +140,33 @@ const AppRoutes = () => {
           element={
             <CalculatorLayout>
               <ProfitLoss />
+            </CalculatorLayout>
+          }
+        />
+
+        <Route
+          path="/calculators/balancesheet"
+          element={
+            <CalculatorLayout>
+              <BalanceSheet />
+            </CalculatorLayout>
+          }
+        />
+
+        <Route
+          path="/calculators/balance-sheet"
+          element={
+            <CalculatorLayout>
+              <BalanceSheet />
+            </CalculatorLayout>
+          }
+        />
+
+        <Route
+          path="/calculators/billing"
+          element={
+            <CalculatorLayout>
+              <Billing />
             </CalculatorLayout>
           }
         />

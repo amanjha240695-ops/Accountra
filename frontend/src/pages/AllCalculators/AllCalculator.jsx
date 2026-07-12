@@ -27,15 +27,11 @@ const calculators = [
     path: "/calculators/interest",
   },
   {
-    title: "Percentage Calculator",
-    description: "Calculate percentages easily.",
-    path: "/calculators/percentage",
+    title: "SIP Calculator",
+    description: "Plan your investments.",
+    path: "/calculators/SIP",
   },
-  {
-    title: "Discount Calculator",
-    description: "Find discounts instantly.",
-    path: "/calculators/discount",
-  },
+ 
   {
     title: "Salary Calculator",
     description: "Estimate salary breakdown.",
@@ -50,6 +46,16 @@ const calculators = [
     title: "Depreciation Calculator",
     description: "Calculate asset depreciation.",
     path: "/calculators/depreciation",
+  },
+  {
+    title: "Balance Sheet Calculator",
+    description: "Generate balance sheet report.",
+    path: "/calculators/balancesheet",
+  },
+  {
+    title: "Billing Calculator",
+    description: "Calculate billing amounts.",
+    path: "/calculators/billing",
   },
   {
     title: "Profit & Loss Calculator",
