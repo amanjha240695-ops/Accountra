@@ -23,17 +23,30 @@ const Hero = () => {
           Income Tax, EMI, Loan, TDS, Salary and much more.
           Built for Students, Accountants and CAs.
         </p>
+      <div className="hero-buttons">
 
-        <div className="hero-buttons">
-          <Link to="/calculators" className="primary-btn">
-            Explore Calculators
-            <FaArrowRight />
-          </Link>
+  <Link to="/calculators" className="primary-btn">
+    Explore Calculators
+    <FaArrowRight />
+  </Link>
 
-          <Link to="/about" className="secondary-btn">
-            Learn More
-          </Link>
-        </div>
+  <Link to="/about" className="secondary-btn">
+    Learn More
+  </Link>
+
+</div>
+
+<div className="auth-buttons">
+
+  <Link to="/login" className="login-btn-home">
+    Login
+  </Link>
+
+  <Link to="/register" className="register-btn-home">
+    Create Account
+  </Link>
+
+</div>
 
       </div>
 

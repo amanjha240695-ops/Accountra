@@ -135,13 +135,12 @@ function Footer() {
 
         <div className="footer-links">
 
-
           <h3>
             Company
           </h3>
 
 
-          <a href="#">
+          <a href="../about">
             About Us
           </a>
 
@@ -151,87 +150,42 @@ function Footer() {
           </a>
 
 
-          <a href="#">
+          <a href="about">
             Privacy Policy
           </a>
 
 
-          <a href="#">
+          <a href="">
             Disclaimer
           </a>
-
-
         </div>
-
-
-
       </div>
-
-
-
-
-
-
-
 
       {/* Update Banner */}
 
       <div className="footer-update">
 
-
         <span>
           🚀 Tax Update Promise:
         </span>
-
-
         Government tax changes are verified and
         calculators are updated within
         <strong>
           3 days
         </strong>
-
-
       </div>
-
-
-
-
-
-
-
-
 
       {/* Bottom */}
-
       <div className="footer-bottom">
-
-
         <p>
-
           © 2026 Accountra. All Rights Reserved.
-
         </p>
-
-
-
         <p>
-
           Built with ❤️ for smarter financial decisions.
-
         </p>
-
 
       </div>
-
-
-
-
     </footer>
-
-
   );
-
 }
-
-
 export default Footer;

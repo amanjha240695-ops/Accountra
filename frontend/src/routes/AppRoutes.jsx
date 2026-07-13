@@ -5,6 +5,10 @@ import About from "../pages/About/About";
 import Feedback from "../pages/Feedback/Feedback";
 import AllCalculators from "../pages/AllCalculators/AllCalculator";
 import NotFound from "../pages/NotFound/NotFound";
+//auth
+import Login from "../auth/Login";
+import Register from "../auth/Register";
+import ForgotPassword from "../auth/ForgotPassword";
 
 // Layout
 import CalculatorLayout from "../layouts/CalculatorLayout/CalculatorLayout";
@@ -33,6 +37,23 @@ const AppRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/calculators" element={<AllCalculators />} />
         <Route path="/feedback" element={<Feedback />} />
+{/* Authentication Pages */}
+
+<Route
+  path="/login"
+  element={<Login />}
+/>
+
+<Route
+  path="/register"
+  element={<Register />}
+/>
+
+<Route
+  path="/forgot-password"
+  element={<ForgotPassword />}
+/>
+
 
         {/* Calculator Pages */}
 
