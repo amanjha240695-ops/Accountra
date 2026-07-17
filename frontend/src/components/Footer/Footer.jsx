@@ -140,7 +140,7 @@ function Footer() {
           </h3>
 
 
-          <a href="../about">
+          <a href="">
             About Us
           </a>
 

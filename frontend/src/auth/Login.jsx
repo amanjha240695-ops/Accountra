@@ -33,15 +33,24 @@ function Login() {
 
       <div className="login-card">
 
-        <h1>Accountra</h1>
+        <div className="login-header">
 
-        <p className="subtitle">
-          Welcome back! Login to continue.
-        </p>
+          <div className="logo">
+            A
+          </div>
+
+          <h1>Welcome Back</h1>
+
+          <p>
+            Login to your Accountra account and continue managing your finances.
+          </p>
+
+        </div>
 
         <form onSubmit={handleSubmit}>
 
           <div className="input-group">
+
             <label>Email Address</label>
 
             <input
@@ -52,6 +61,7 @@ function Login() {
               onChange={handleChange}
               required
             />
+
           </div>
 
           <div className="input-group">
@@ -63,7 +73,7 @@ function Login() {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="Enter password"
+                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
                 required
@@ -72,9 +82,7 @@ function Login() {
               <button
                 type="button"
                 className="show-btn"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
+                onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
@@ -85,7 +93,7 @@ function Login() {
 
           <div className="login-options">
 
-            <label>
+            <label className="remember">
 
               <input
                 type="checkbox"
@@ -104,13 +112,21 @@ function Login() {
 
           </div>
 
-          <button className="login-btn">
+          <button
+            type="submit"
+            className="login-btn"
+          >
             Login
           </button>
 
         </form>
 
+        <div className="divider">
+          <span>or</span>
+        </div>
+
         <p className="register-link">
+
           Don't have an account?
 
           <Link to="/register">

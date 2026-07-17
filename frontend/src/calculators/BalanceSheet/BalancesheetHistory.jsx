@@ -1,343 +1,38 @@
-import jsPDF from "jspdf";
-
-import {
-  formatCurrency,
-  copyBalanceSheetResult
-} from "./BalanceSheetUtils";
-
-
-
-function BalanceSheetResult({ result }) {
-
-
-  if (!result) return null;
-
-
-
-
-  // Copy
-
-  const handleCopy = async()=>{
-
-
-    await copyBalanceSheetResult(result);
-
-    alert("Balance Sheet copied successfully!");
-
-  };
-
-
-
-
-
-
-
-  // PDF
-
-  const downloadPDF = ()=>{
-
-
-    const doc = new jsPDF();
-
-
-
-    doc.setFontSize(22);
-
-    doc.text(
-      "Accountra Balance Sheet Report",
-      20,
-      20
-    );
-
-
-
-    doc.setFontSize(14);
-
-
-
-    let y = 40;
-
-
-
-    const addRow = (label,value)=>{
-
-
-      doc.text(
-        label,
-        20,
-        y
-      );
-
-
-      doc.text(
-        String(value),
-        120,
-        y
-      );
-
-
-      y += 10;
-
-
-    };
-
-
-
-
-
-
-
-    addRow(
-      "Total Assets",
-      formatCurrency(result.totalAssets)
-    );
-
-
-
-    addRow(
-      "Total Liabilities",
-      formatCurrency(result.totalLiabilities)
-    );
-
-
-
-    addRow(
-      "Owner Equity",
-      formatCurrency(result.ownerEquity)
-    );
-
-
-
-    doc.save(
-      "Balance_Sheet_Report.pdf"
-    );
-
-
-  };
-
-
-
-
-
-
-
-
-  // Print
-
-  const handlePrint = ()=>{
-
-    window.print();
-
-  };
-
-
-
-
-
-
-
-  // Share
-
-  const handleShare = async()=>{
-
-
-    if(!navigator.share){
-
-      alert(
-        "Sharing is not supported on this browser."
-      );
-
-      return;
-
-    }
-
-
-
-
-    await navigator.share({
-
-      title:"Balance Sheet Report",
-
-      text:`
-
-Total Assets:
-${formatCurrency(result.totalAssets)}
-
-
-Total Liabilities:
-${formatCurrency(result.totalLiabilities)}
-
-
-Owner Equity:
-${formatCurrency(result.ownerEquity)}
-
-      `
-
-    });
-
-
-  };
-
-
-
-
-
-
+﻿import { formatCurrency } from "./BalanceSheetUtils";
+
+function BalanceSheetHistory({ history, clearHistory }) {
+  if (!history || history.length === 0) {
+    return null;
+  }
 
   return (
-
-    <div className="result-card">
-
-
-      <h2>
-        Balance Sheet Result
-      </h2>
-
-
-
-
-
-
-
-      <div className="result-row">
-
-        <span>
-          Total Assets
-        </span>
-
-
-        <span>
-          {formatCurrency(result.totalAssets)}
-        </span>
-
+    <div className="history-card">
+      <div className="history-header">
+        <h2>Balance Sheet History</h2>
+        <button className="clear-btn" onClick={clearHistory}>
+          Clear
+        </button>
       </div>
 
-
-
-
-
-
-
-
-      <div className="result-row">
-
-        <span>
-          Total Liabilities
-        </span>
-
-
-        <span>
-          {formatCurrency(result.totalLiabilities)}
-        </span>
-
-      </div>
-
-
-
-
-
-
-
-
-      <div className="result-row total">
-
-        <span>
-          Owner Equity
-        </span>
-
-
-        <span>
-          {formatCurrency(result.ownerEquity)}
-        </span>
-
-      </div>
-
-
-
-
-
-
-
-
-      <div className="result-buttons">
-
-
-        <button
-
-          className="copy-btn"
-
-          onClick={handleCopy}
-
-        >
-
-          📋 Copy
-
-        </button>
-
-
-
-
-
-
-        <button
-
-          className="pdf-btn"
-
-          onClick={downloadPDF}
-
-        >
-
-          📄 PDF
-
-        </button>
-
-
-
-
-
-
-        <button
-
-          className="print-btn"
-
-          onClick={handlePrint}
-
-        >
-
-          🖨 Print
-
-        </button>
-
-
-
-
-
-
-        <button
-
-          className="share-btn"
-
-          onClick={handleShare}
-
-        >
-
-          🔗 Share
-
-        </button>
-
-
-
-      </div>
-
-
-
-
+      {history.map((item, index) => (
+        <div className="history-item" key={index}>
+          <p>
+            <strong>Total Assets:</strong> {formatCurrency(item.totalAssets)}
+          </p>
+
+          <p>
+            <strong>Total Liabilities:</strong> {formatCurrency(item.totalLiabilities)}
+          </p>
+
+          <p>
+            <strong>Owner Equity:</strong> {formatCurrency(item.ownerEquity)}
+          </p>
+
+          <hr />
+        </div>
+      ))}
     </div>
-
   );
-
 }
 
-
-
-export default BalanceSheetResult;
+export default BalanceSheetHistory;

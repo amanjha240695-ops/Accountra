@@ -55,6 +55,8 @@ const PopularCalculators = () => {
   description="Calculate TDS deductions."
   path="/calculators/tds"
 />
+<CalculatorCard icon="📉" title="SIP Calculator" description="Plan your investments." path="/calculators/sip" />
+
 
       </div>
 

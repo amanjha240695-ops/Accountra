@@ -9,6 +9,7 @@ import {
   FaMoneyCheckAlt,
   FaFileInvoiceDollar,
   FaArrowLeft,
+  FaMobile,
 } from "react-icons/fa";
 
 import { NavLink } from "react-router-dom";
@@ -27,6 +28,7 @@ const Sidebar = ({ open, setOpen }) => {
     { name: "SIP", icon: <FaChartLine />, path: "/calculators/sip" },
     { name: "TDS", icon: <FaMoneyCheckAlt />, path: "/calculators/tds" },
     { name: "Income Tax", icon: <FaFileInvoiceDollar />, path: "/calculators/income-tax" },
+    {name: "salary", icon: <FaMobile />, path: "/calculators/salary" }
   ];
 
   return (
