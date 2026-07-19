@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import api from "../services/api";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,12 +23,25 @@ function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      const response = await api.post("/auth/login", {
+        email: formData.email,
+        password: formData.password,
+      });
 
-    // Backend Integration Later
+      // Save JWT token
+      localStorage.setItem("token", response.data.token);
+
+      alert(response.data.message);
+
+      // Redirect after login
+      navigate("/");
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed.");
+    }
   };
 
   return (

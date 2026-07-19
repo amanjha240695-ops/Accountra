@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
+import api from "../services/api";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
     agree: false,
@@ -23,7 +27,7 @@ function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -36,15 +40,27 @@ function Register() {
       return;
     }
 
-    console.log(formData);
+    try {
+      const response = await api.post("/auth/register", {
+        username: formData.username,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        password: formData.password,
+      });
 
-    // Backend Integration Later
+      alert(response.data.message);
+
+      navigate("/login");
+    } catch (error) {
+      alert(
+        error.response?.data?.message || "Registration failed."
+      );
+    }
   };
 
   return (
     <div className="register-page">
       <div className="register-card">
-
         <h1>Accountra</h1>
 
         <p className="subtitle">
@@ -54,13 +70,13 @@ function Register() {
         <form onSubmit={handleSubmit}>
 
           <div className="input-group">
-            <label>Full Name</label>
+            <label>Username</label>
 
             <input
               type="text"
-              name="name"
-              placeholder="Enter your full name"
-              value={formData.name}
+              name="username"
+              placeholder="Enter your username"
+              value={formData.username}
               onChange={handleChange}
               required
             />
@@ -76,6 +92,18 @@ function Register() {
               value={formData.email}
               onChange={handleChange}
               required
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Phone Number (Optional)</label>
+
+            <input
+              type="tel"
+              name="phoneNumber"
+              placeholder="Enter your phone number"
+              value={formData.phoneNumber}
+              onChange={handleChange}
             />
           </div>
 
@@ -126,7 +154,6 @@ function Register() {
           </div>
 
           <div className="register-options">
-
             <label>
               <input
                 type="checkbox"
@@ -137,22 +164,19 @@ function Register() {
 
               I agree to the Terms & Conditions
             </label>
-
           </div>
 
-          <button className="register-btn">
+          <button type="submit" className="register-btn">
             Create Account
           </button>
 
         </form>
 
         <p className="login-link">
-          Already have an account?
-
+          Already have an account?{" "}
           <Link to="/login">
             Login
           </Link>
-
         </p>
 
       </div>
