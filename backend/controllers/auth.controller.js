@@ -1,8 +1,10 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import prisma from "../config/prisma.js";
 
+// =============================
 // REGISTER USER
+// =============================
 const registerUser = async (req, res) => {
   try {
     const { username, email, phoneNumber, password } = req.body;
@@ -60,9 +62,9 @@ const registerUser = async (req, res) => {
         username: user.username,
         email: user.email,
         phoneNumber: user.phoneNumber,
+        role: user.role,
       },
     });
-
   } catch (error) {
     console.error("REGISTER ERROR:", error);
 
@@ -73,8 +75,9 @@ const registerUser = async (req, res) => {
   }
 };
 
-
+// =============================
 // LOGIN USER
+// =============================
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -111,29 +114,52 @@ const loginUser = async (req, res) => {
         message: "Invalid password.",
       });
     }
-    // Create JWT token
-const token = jwt.sign(
-  {
-    id: user.id,
-    email: user.email,
-  },
-  process.env.JWT_SECRET,
-  {
-    expiresIn: "7d",
-  }
-);
-res.status(200).json({
-  success: true,
-  message: "Login successful.",
-  token,
-  user: {
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-  },
-});
 
+    // Update last login
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        lastLogin: new Date(),
+      },
+    });
+
+    // Save login history
+    await prisma.loginHistory.create({
+      data: {
+        userId: user.id,
+        ipAddress: req.ip || "Unknown",
+      },
+    });
+
+    // Create JWT Token
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    // Response
+    res.status(200).json({
+      success: true,
+      message: "Login successful.",
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role,
+        lastLogin: new Date(),
+      },
+    });
   } catch (error) {
     console.error("LOGIN ERROR:", error);
 
@@ -143,6 +169,5 @@ res.status(200).json({
     });
   }
 };
-
 
 export { registerUser, loginUser };

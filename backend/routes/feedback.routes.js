@@ -1,16 +1,18 @@
 import express from "express";
-import { createFeedback, getMyFeedback } from "../controllers/feedback.controller.js";
-import authMiddleware from "../middleware/auth.middleware.js";
+
+import {
+  createFeedback,
+  getMyFeedback,
+} from "../controllers/feedback.controller.js";
+
+import { verifyToken } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
+// Submit Feedback
+router.post("/", verifyToken, createFeedback);
 
-// Protected feedback submit route
-router.post("/", authMiddleware, createFeedback);
-
-
-// Protected get user's feedback route
-router.get("/my-feedback", authMiddleware, getMyFeedback);
-
+// Get My Feedback
+router.get("/my-feedback", verifyToken, getMyFeedback);
 
 export default router;

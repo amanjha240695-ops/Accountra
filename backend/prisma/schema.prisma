@@ -14,7 +14,13 @@ model User {
   phoneNumber String? @unique
   password    String
 
-  feedbacks Feedback[]
+  // New Fields
+  role      String    @default("USER")
+  lastLogin DateTime?
+
+  // Relations
+  feedbacks    Feedback[]
+  loginHistory LoginHistory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,4 +38,16 @@ model Feedback {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
+}
+
+model LoginHistory {
+  id Int @id @default(autoincrement())
+
+  userId Int
+
+  loginAt DateTime @default(now())
+
+  ipAddress String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

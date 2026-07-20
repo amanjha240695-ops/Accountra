@@ -1,7 +1,6 @@
 import express from "express";
 import { testDatabase, getProfile } from "../controllers/user.controller.js";
-import authMiddleware from "../middleware/auth.middleware.js";
-
+import { verifyToken } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 console.log("USER ROUTER FILE EXECUTED");
@@ -12,7 +11,7 @@ router.get("/test", testDatabase);
 
 
 // Protected profile route
-router.get("/profile", authMiddleware, getProfile);
+router.get("/profile",verifyToken, getProfile);
 
 
 export default router;
