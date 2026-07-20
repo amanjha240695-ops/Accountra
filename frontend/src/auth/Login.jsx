@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import "./Login.css";
 import api from "../services/api";
 
@@ -9,10 +10,12 @@ function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    role: "user",
     remember: false,
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,31 +26,115 @@ function Login() {
     }));
   };
 
+
+  const validateForm = () => {
+    const email = formData.email.trim();
+    const password = formData.password.trim();
+
+    if (!email) {
+      alert("Please enter your email.");
+      return false;
+    }
+
+    const emailRegex =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
+    if (!password) {
+      alert("Please enter your password.");
+      return false;
+    }
+
+    return true;
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!validateForm()) return;
+
     try {
+      setLoading(true);
+
       const response = await api.post("/auth/login", {
-        email: formData.email,
+        email: formData.email.trim(),
         password: formData.password,
       });
 
-      // Save JWT token
-      localStorage.setItem("token", response.data.token);
 
-      alert(response.data.message);
+      const { token, user, message } = response.data;
 
-      // Redirect after login
-      navigate("/");
+
+      // Role checking
+      if (
+        formData.role === "admin" &&
+        user.role !== "admin"
+      ) {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        alert(
+          "Access denied.\nThis account is not an administrator."
+        );
+
+        setLoading(false);
+        return;
+      }
+
+
+      localStorage.setItem(
+        "token",
+        token
+      );
+
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
+
+
+      alert(message);
+
+
+      // Redirect based on role
+      if (user.role === "admin") {
+
+        navigate("/admin");
+
+      } else {
+
+        navigate("/");
+
+      }
+
+
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed.");
+
+      alert(
+        error.response?.data?.message ||
+        "Login failed."
+      );
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
+
 
   return (
     <div className="login-page">
 
       <div className="login-card">
+
 
         <div className="login-header">
 
@@ -55,19 +142,27 @@ function Login() {
             A
           </div>
 
-          <h1>Welcome Back</h1>
+          <h1>
+            Welcome Back
+          </h1>
 
           <p>
-            Login to your Accountra account and continue managing your finances.
+            Sign in to your Accountra account and
+            continue managing your finances.
           </p>
 
         </div>
 
+
+
         <form onSubmit={handleSubmit}>
+
 
           <div className="input-group">
 
-            <label>Email Address</label>
+            <label>
+              Email Address
+            </label>
 
             <input
               type="email"
@@ -75,41 +170,125 @@ function Login() {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              required
             />
 
           </div>
 
+
+
           <div className="input-group">
 
-            <label>Password</label>
+            <label>
+              Password
+            </label>
+
 
             <div className="password-box">
 
               <input
-                type={showPassword ? "text" : "password"}
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
+                }
                 name="password"
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
-                required
               />
+
 
               <button
                 type="button"
                 className="show-btn"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
               >
-                {showPassword ? "Hide" : "Show"}
+
+                {
+                  showPassword
+                    ? <EyeOff size={18}/>
+                    : <Eye size={18}/>
+                }
+
               </button>
 
             </div>
 
+
           </div>
+
+
+
+
+          <div className="role-section">
+
+            <label>
+              Login As
+            </label>
+
+
+            <div className="role-options">
+
+
+              <label className="role-option">
+
+                <input
+                  type="radio"
+                  name="role"
+                  value="user"
+                  checked={
+                    formData.role === "user"
+                  }
+                  onChange={handleChange}
+                />
+
+                <span>
+                  User
+                </span>
+
+              </label>
+
+
+
+
+              <label className="role-option">
+
+
+                <input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={
+                    formData.role === "admin"
+                  }
+                  onChange={handleChange}
+                />
+
+
+                <span>
+                  Admin
+                </span>
+
+
+              </label>
+
+
+            </div>
+
+
+          </div>
+
+
+
+
 
           <div className="login-options">
 
+
             <label className="remember">
+
 
               <input
                 type="checkbox"
@@ -118,40 +297,84 @@ function Login() {
                 onChange={handleChange}
               />
 
-              Remember Me
+
+              <span>
+                Remember Me
+              </span>
+
 
             </label>
 
-            <Link to="/forgot-password">
+
+
+            <Link
+              to="/forgot-password"
+              className="forgot-link"
+            >
               Forgot Password?
             </Link>
 
+
           </div>
+
+
+
+
 
           <button
             type="submit"
-            className="login-btn"
+            className={`login-btn ${
+              loading ? "loading" : ""
+            }`}
+            disabled={loading}
           >
-            Login
+
+            {
+              loading
+              ? "Signing In..."
+              : "Sign In"
+            }
+
           </button>
+
+
 
         </form>
 
+
+
+
+
         <div className="divider">
-          <span>or</span>
+
+          <span>
+            or
+          </span>
+
         </div>
+
+
+
+
 
         <p className="register-link">
 
+
           Don't have an account?
 
+
           <Link to="/register">
-            Register
+            Create Account
           </Link>
+
 
         </p>
 
+
+
+
       </div>
+
 
     </div>
   );

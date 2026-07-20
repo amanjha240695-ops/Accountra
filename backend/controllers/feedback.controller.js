@@ -99,3 +99,49 @@ export const getMyFeedback = async (req, res) => {
     }
 
 };
+
+// Get all feedback (Admin)
+export const getAllFeedback = async (req, res) => {
+
+    try {
+
+        const feedbacks = await prisma.feedback.findMany({
+
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        email: true
+                    }
+                }
+            },
+
+            orderBy: {
+                createdAt: "desc"
+            }
+
+        });
+
+
+        res.json({
+
+            success: true,
+            feedbacks
+
+        });
+
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+
+            success: false,
+            message: "Internal server error."
+
+        });
+
+    }
+
+};

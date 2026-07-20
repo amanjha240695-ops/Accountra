@@ -5,13 +5,17 @@ import About from "../pages/About/About";
 import Feedback from "../pages/Feedback/Feedback";
 import AllCalculators from "../pages/AllCalculators/AllCalculator";
 import NotFound from "../pages/NotFound/NotFound";
-//auth
+
+
+// auth
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import ForgotPassword from "../auth/ForgotPassword";
 
+
 // Layout
 import CalculatorLayout from "../layouts/CalculatorLayout/CalculatorLayout";
+
 
 // Calculator imports
 import GST from "../calculators/GST/GST";
@@ -28,34 +32,85 @@ import Depreciation from "../calculators/Depreciation/Depreciation";
 import ProfitLoss from "../calculators/ProfitLoss/ProfitLoss";
 import Percentage from "../calculators/Percentage/Percentage";
 
+
+// Admin
+import AdminRoute from "../admin/AdminRoute";
+import AdminLayout from "../admin/AdminLayout";
+
+import Dashboard from "../admin/Dashboard";
+import Users from "../admin/Users";
+import FeedbackAdmin from "../admin/Feedback";
+import Settings from "../admin/Settings";
+
+
+
 const AppRoutes = () => {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
-        {/* Main Pages */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/calculators" element={<AllCalculators />} />
-        <Route path="/feedback" element={<Feedback />} />
-{/* Authentication Pages */}
-
-<Route
-  path="/login"
-  element={<Login />}
-/>
-
-<Route
-  path="/register"
-  element={<Register />}
-/>
-
-<Route
-  path="/forgot-password"
-  element={<ForgotPassword />}
-/>
 
 
-        {/* Calculator Pages */}
+        {/* =====================
+            MAIN PAGES
+        ====================== */}
+
+        <Route 
+          path="/" 
+          element={<Home />} 
+        />
+
+
+        <Route 
+          path="/about" 
+          element={<About />} 
+        />
+
+
+        <Route 
+          path="/calculators" 
+          element={<AllCalculators />} 
+        />
+
+
+        <Route 
+          path="/feedback" 
+          element={<Feedback />} 
+        />
+
+
+
+        {/* =====================
+            AUTH
+        ====================== */}
+
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+
+
+
+        {/* =====================
+            CALCULATORS
+        ====================== */}
+
 
         <Route
           path="/calculators/gst"
@@ -66,6 +121,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/emi"
           element={
@@ -74,6 +130,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/loan"
@@ -84,6 +141,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/interest"
           element={
@@ -92,6 +150,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/percentage"
@@ -102,6 +161,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/sip"
           element={
@@ -110,6 +170,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/discount"
@@ -120,6 +181,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/salary"
           element={
@@ -128,6 +190,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/tds"
@@ -138,6 +201,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/income-tax"
           element={
@@ -146,6 +210,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/depreciation"
@@ -156,6 +221,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/profit-loss"
           element={
@@ -164,6 +230,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/balancesheet"
@@ -174,6 +241,7 @@ const AppRoutes = () => {
           }
         />
 
+
         <Route
           path="/calculators/balance-sheet"
           element={
@@ -182,6 +250,7 @@ const AppRoutes = () => {
             </CalculatorLayout>
           }
         />
+
 
         <Route
           path="/calculators/billing"
@@ -192,11 +261,71 @@ const AppRoutes = () => {
           }
         />
 
-        {/* 404 */}
-        <Route path="*" element={<NotFound />} />
+
+
+
+        {/* =====================
+            ADMIN PANEL
+        ====================== */}
+
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+
+          <Route
+            index
+            element={<Dashboard />}
+          />
+
+
+          <Route
+            path="users"
+            element={<Users />}
+          />
+
+
+          <Route
+            path="feedback"
+            element={<FeedbackAdmin />}
+          />
+
+
+          <Route
+            path="settings"
+            element={<Settings />}
+          />
+
+
+        </Route>
+
+
+
+
+        {/* =====================
+            404
+        ====================== */}
+
+
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
+
+
       </Routes>
+
+
     </BrowserRouter>
+
   );
+
 };
+
 
 export default AppRoutes;

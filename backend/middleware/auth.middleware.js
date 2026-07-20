@@ -23,38 +23,66 @@ const verifyToken = (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+const decoded = jwt.verify(
+  token,
+  process.env.JWT_SECRET
+);
 
-    req.user = decoded;
+console.log("JWT USER:", decoded);
 
+req.user = decoded;
     next();
+
   } catch (error) {
+
     return res.status(401).json({
       success: false,
       message: "Invalid or expired token.",
     });
+
   }
 };
+
 
 // ==============================
 // Admin Middleware
 // ==============================
 const isAdmin = (req, res, next) => {
   try {
-    if (req.user.role !== "ADMIN") {
+
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not authenticated.",
+      });
+    }
+
+
+    if (req.user.role !== "admin") {
+
       return res.status(403).json({
         success: false,
         message: "Access denied. Admin only.",
       });
+
     }
 
+
     next();
+
+
   } catch (error) {
+
     return res.status(500).json({
       success: false,
       message: "Authorization failed.",
     });
+
   }
 };
 
-export { verifyToken, isAdmin };
+
+export {
+  verifyToken,
+  isAdmin,
+};

@@ -134,32 +134,31 @@ const loginUser = async (req, res) => {
     });
 
     // Create JWT Token
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
-    );
-
+ const token = jwt.sign(
+  {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+  },
+  process.env.JWT_SECRET,
+  {
+    expiresIn: "7d",
+  }
+);
     // Response
     res.status(200).json({
       success: true,
       message: "Login successful.",
       token,
-      user: {
+          user: {
         id: user.id,
         username: user.username,
         email: user.email,
-        phoneNumber: user.phoneNumber,
-        role: user.role,
-        lastLogin: new Date(),
-      },
-    });
+        role: user.role
+    }
+});
+ 
   } catch (error) {
     console.error("LOGIN ERROR:", error);
 

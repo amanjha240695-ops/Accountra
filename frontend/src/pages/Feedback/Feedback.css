@@ -1,0 +1,329 @@
+/* ==========================================
+   FEEDBACK PAGE
+========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter",sans-serif;
+}
+
+.feedback-page{
+    min-height:100vh;
+    background:#f8fafc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.feedback-card{
+    width:100%;
+    max-width:700px;
+    background:#fff;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:
+        0 20px 60px rgba(15,23,42,.08),
+        0 6px 18px rgba(15,23,42,.05);
+    border:1px solid #e2e8f0;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.feedback-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.feedback-icon{
+    width:72px;
+    height:72px;
+    margin:auto;
+    margin-bottom:18px;
+    border-radius:18px;
+    background:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+}
+
+.feedback-header h1{
+    font-size:2rem;
+    color:#0f172a;
+    margin-bottom:10px;
+}
+
+.feedback-header p{
+    color:#64748b;
+    line-height:1.7;
+    font-size:15px;
+}
+
+/* ==========================================
+   FORM
+========================================== */
+
+.feedback-form{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+/* ==========================================
+   RATING
+========================================== */
+
+.rating-section{
+    text-align:center;
+}
+
+.rating-section label{
+    display:block;
+    margin-bottom:18px;
+    font-weight:600;
+    color:#334155;
+}
+
+.stars{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.star-btn{
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.star-btn:hover{
+    transform:scale(1.15);
+}
+
+.star{
+    color:#cbd5e1;
+    transition:.25s;
+}
+
+.star.filled{
+    color:#fbbf24;
+    fill:#fbbf24;
+}
+
+.rating-text{
+    color:#64748b;
+    font-weight:600;
+    font-size:15px;
+}
+
+/* ==========================================
+   INPUT
+========================================== */
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    font-weight:600;
+    margin-bottom:10px;
+    color:#334155;
+}
+
+.input-group textarea{
+    resize:none;
+    min-height:180px;
+    padding:18px;
+    border:1px solid #dbe2ea;
+    border-radius:14px;
+    outline:none;
+    font-size:15px;
+    line-height:1.7;
+    transition:.25s;
+    color:#0f172a;
+    background:#fff;
+}
+
+.input-group textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.input-group textarea::placeholder{
+    color:#94a3b8;
+}
+
+.character-count{
+    margin-top:8px;
+    text-align:right;
+    font-size:13px;
+    color:#64748b;
+}
+
+/* ==========================================
+   ALERTS
+========================================== */
+
+.feedback-error{
+    padding:14px;
+    border-radius:12px;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#dc2626;
+    font-size:14px;
+    text-align:center;
+}
+
+.feedback-success{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+
+    padding:14px;
+    border-radius:12px;
+
+    background:#ecfdf5;
+    border:1px solid #bbf7d0;
+
+    color:#15803d;
+    font-size:14px;
+    font-weight:500;
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.submit-feedback-btn{
+    height:56px;
+    border:none;
+    border-radius:14px;
+
+    background:#2563eb;
+    color:#fff;
+
+    font-size:16px;
+    font-weight:600;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    cursor:pointer;
+    transition:.25s;
+}
+
+.submit-feedback-btn:hover:not(:disabled){
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.submit-feedback-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+/* ==========================================
+   LOADER
+========================================== */
+
+.spin{
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+textarea::-webkit-scrollbar{
+    width:8px;
+}
+
+textarea::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:768px){
+
+.feedback-card{
+    padding:28px;
+}
+
+.feedback-header h1{
+    font-size:1.7rem;
+}
+
+.feedback-icon{
+    width:64px;
+    height:64px;
+}
+
+.input-group textarea{
+    min-height:150px;
+}
+
+.stars{
+    gap:6px;
+}
+
+.star{
+    width:28px;
+    height:28px;
+}
+
+}
+
+@media(max-width:480px){
+
+.feedback-page{
+    padding:20px 14px;
+}
+
+.feedback-card{
+    padding:22px;
+    border-radius:16px;
+}
+
+.feedback-header h1{
+    font-size:1.45rem;
+}
+
+.feedback-header p{
+    font-size:14px;
+}
+
+.submit-feedback-btn{
+    height:52px;
+    font-size:15px;
+}
+
+}
