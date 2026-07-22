@@ -1,10 +1,27 @@
+import { useState } from "react";
+import { FaSearch, FaTimes } from "react-icons/fa";
 import "./SearchBar.css";
-import { FaSearch } from "react-icons/fa";
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (onSearch) {
+      onSearch(searchTerm.trim());
+    }
+  };
+
+  const handleClear = () => {
+    setSearchTerm("");
+    if (onSearch) {
+      onSearch("");
+    }
+  };
+
   return (
-    <section className="search-section">
-      <div className="search-container">
+    <section className="sb-section">
+      <div className="sb-container">
         <h2>Find the Right Calculator</h2>
 
         <p>
@@ -12,16 +29,32 @@ function SearchBar() {
           calculators.
         </p>
 
-        <div className="search-box">
-          <FaSearch className="search-icon" />
+        <form className="sb-box" onSubmit={handleSearch}>
+          <FaSearch className="sb-icon" />
 
           <input
             type="text"
-            placeholder="Search calculators..."
+            className="sb-input"
+            placeholder="Search calculators (e.g. GST, EMI, TDS)..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
 
-          <button>Search</button>
-        </div>
+          {searchTerm && (
+            <button
+              type="button"
+              className="sb-clear-btn"
+              onClick={handleClear}
+              aria-label="Clear search"
+            >
+              <FaTimes />
+            </button>
+          )}
+
+          <button type="submit" className="sb-btn">
+            Search
+          </button>
+        </form>
       </div>
     </section>
   );

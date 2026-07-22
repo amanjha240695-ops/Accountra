@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./TDS.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateTDS } from "./TDSUtils";
 import TDSResult from "./TDSResult";
 import TDSHistory from "./TDSHistory";
 
 function TDS() {
+  const checkLogin = useRequireLogin();
+
   const [formData, setFormData] = useState({
     amount: "",
     rate: "10",
@@ -23,9 +25,11 @@ function TDS() {
   };
 
   // Calculate TDS
-  const handleCalculate = () => {
-    const response = calculateTDS(formData);
+ const handleCalculate = () => {
 
+  if (!checkLogin()) return;
+
+  const response = calculateTDS(formData);
     if (!response.success) {
       alert(response.message);
       return;

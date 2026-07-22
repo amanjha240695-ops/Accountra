@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "./Depreciation.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateDepreciation } from "./DepreciationUtils";
 import DepreciationResult from "./DepreciationResult";
 import DepreciationHistory from "./DepreciationHistory";
 
 function Depreciation() {
+  const checkLogin = useRequireLogin();
 
   const [assetName, setAssetName] = useState("");
   const [cost, setCost] = useState("");
@@ -18,9 +19,11 @@ function Depreciation() {
   const [history, setHistory] = useState([]);
 
 
-  const handleCalculate = () => {
+ const handleCalculate = () => {
 
-    const response = calculateDepreciation({
+  if (!checkLogin()) return;
+
+  const response = calculateDepreciation({
       assetName,
       cost,
       salvageValue,

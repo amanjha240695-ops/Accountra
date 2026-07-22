@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "./Interest.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateInterest } from "./InterestUtils";
 import InterestResult from "./InterestResult";
 import InterestHistory from "./InterestHistory";
 
 function Interest() {
+  const checkLogin = useRequireLogin();
   const [formData, setFormData] = useState({
     principal: "",
     rate: "",
@@ -28,7 +29,10 @@ function Interest() {
 
   // Calculate
   const handleCalculate = () => {
-    const response = calculateInterest(formData);
+
+  if (!checkLogin()) return;
+
+  const response = calculateInterest(formData);
 
     if (!response.success) {
       alert(response.message);

@@ -1,329 +1,229 @@
-/* ==========================================
-   FEEDBACK PAGE
-========================================== */
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Inter",sans-serif;
+/* Container Page */
+.fb-page,
+.fb-page * {
+  box-sizing: border-box;
 }
 
-.feedback-page{
-    min-height:100vh;
-    background:#f8fafc;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:40px 20px;
+.fb-page {
+  min-height: calc(100vh - 80px);
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
 }
 
-.feedback-card{
-    width:100%;
-    max-width:700px;
-    background:#fff;
-    border-radius:20px;
-    padding:40px;
-    box-shadow:
-        0 20px 60px rgba(15,23,42,.08),
-        0 6px 18px rgba(15,23,42,.05);
-    border:1px solid #e2e8f0;
+/* Card Wrapper */
+.fb-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
 }
 
-/* ==========================================
-   HEADER
-========================================== */
-
-.feedback-header{
-    text-align:center;
-    margin-bottom:35px;
+/* Header */
+.fb-header {
+  text-align: center;
+  margin-bottom: 28px;
 }
 
-.feedback-icon{
-    width:72px;
-    height:72px;
-    margin:auto;
-    margin-bottom:18px;
-    border-radius:18px;
-    background:#2563eb;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
+.fb-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 18px;
 }
 
-.feedback-header h1{
-    font-size:2rem;
-    color:#0f172a;
-    margin-bottom:10px;
+.fb-header h1 {
+  font-size: 30px;
+  color: #0f172a;
+  margin-bottom: 10px;
+  margin-top: 0;
+  font-weight: 700;
 }
 
-.feedback-header p{
-    color:#64748b;
-    line-height:1.7;
-    font-size:15px;
+.fb-header p {
+  color: #64748b;
+  line-height: 1.5;
+  font-size: 15px;
+  margin: 0;
 }
 
-/* ==========================================
-   FORM
-========================================== */
-
-.feedback-form{
-    display:flex;
-    flex-direction:column;
-    gap:28px;
+/* Form */
+.fb-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
-/* ==========================================
-   RATING
-========================================== */
-
-.rating-section{
-    text-align:center;
+.fb-label {
+  display: block;
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
-.rating-section label{
-    display:block;
-    margin-bottom:18px;
-    font-weight:600;
-    color:#334155;
+/* Rating */
+.fb-rating-section {
+  text-align: center;
 }
 
-.stars{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:12px;
+.fb-stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
-.star-btn{
-    border:none;
-    background:transparent;
-    cursor:pointer;
-    transition:.25s;
+.fb-star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+  transition: transform 0.15s ease;
 }
 
-.star-btn:hover{
-    transform:scale(1.15);
+.fb-star-btn:hover {
+  transform: scale(1.15);
 }
 
-.star{
-    color:#cbd5e1;
-    transition:.25s;
+.fb-star {
+  color: #cbd5e1;
+  transition: color 0.2s, fill 0.2s;
 }
 
-.star.filled{
-    color:#fbbf24;
-    fill:#fbbf24;
+.fb-star.filled {
+  color: #2563eb;
+  fill: #2563eb;
 }
 
-.rating-text{
-    color:#64748b;
-    font-weight:600;
-    font-size:15px;
+.fb-rating-text {
+  display: block;
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 20px;
 }
 
-/* ==========================================
-   INPUT
-========================================== */
-
-.input-group{
-    display:flex;
-    flex-direction:column;
+/* Textarea Field */
+.fb-field-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.input-group label{
-    font-weight:600;
-    margin-bottom:10px;
-    color:#334155;
+.fb-textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #dbe3ee;
+  outline: none;
+  font-size: 15px;
+  color: #0f172a;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #ffffff;
 }
 
-.input-group textarea{
-    resize:none;
-    min-height:180px;
-    padding:18px;
-    border:1px solid #dbe2ea;
-    border-radius:14px;
-    outline:none;
-    font-size:15px;
-    line-height:1.7;
-    transition:.25s;
-    color:#0f172a;
-    background:#fff;
+.fb-textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-.input-group textarea:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+.fb-textarea::placeholder {
+  color: #94a3b8;
 }
 
-.input-group textarea::placeholder{
-    color:#94a3b8;
+.fb-character-count {
+  text-align: right;
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 6px;
 }
 
-.character-count{
-    margin-top:8px;
-    text-align:right;
-    font-size:13px;
-    color:#64748b;
+/* Alert Messages */
+.fb-error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
 }
 
-/* ==========================================
-   ALERTS
-========================================== */
-
-.feedback-error{
-    padding:14px;
-    border-radius:12px;
-    background:#fef2f2;
-    border:1px solid #fecaca;
-    color:#dc2626;
-    font-size:14px;
-    text-align:center;
+.fb-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
 }
 
-.feedback-success{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-
-    padding:14px;
-    border-radius:12px;
-
-    background:#ecfdf5;
-    border:1px solid #bbf7d0;
-
-    color:#15803d;
-    font-size:14px;
-    font-weight:500;
+/* Submit Button */
+.fb-submit-btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.2s;
+  margin-top: 4px;
 }
 
-/* ==========================================
-   BUTTON
-========================================== */
-
-.submit-feedback-btn{
-    height:56px;
-    border:none;
-    border-radius:14px;
-
-    background:#2563eb;
-    color:#fff;
-
-    font-size:16px;
-    font-weight:600;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-
-    cursor:pointer;
-    transition:.25s;
+.fb-submit-btn:hover:not(:disabled) {
+  background: #1d4ed8;
 }
 
-.submit-feedback-btn:hover:not(:disabled){
-    background:#1d4ed8;
-    transform:translateY(-2px);
+.fb-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.submit-feedback-btn:disabled{
-    opacity:.7;
-    cursor:not-allowed;
+/* Spinner */
+.spin {
+  animation: spin 1s linear infinite;
 }
 
-/* ==========================================
-   LOADER
-========================================== */
-
-.spin{
-    animation:spin .8s linear infinite;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@keyframes spin{
+/* Responsive */
+@media (max-width: 600px) {
+  .fb-card {
+    padding: 24px 18px;
+  }
 
-    from{
-        transform:rotate(0deg);
-    }
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-/* ==========================================
-   SCROLLBAR
-========================================== */
-
-textarea::-webkit-scrollbar{
-    width:8px;
-}
-
-textarea::-webkit-scrollbar-thumb{
-    background:#cbd5e1;
-    border-radius:20px;
-}
-
-/* ==========================================
-   RESPONSIVE
-========================================== */
-
-@media(max-width:768px){
-
-.feedback-card{
-    padding:28px;
-}
-
-.feedback-header h1{
-    font-size:1.7rem;
-}
-
-.feedback-icon{
-    width:64px;
-    height:64px;
-}
-
-.input-group textarea{
-    min-height:150px;
-}
-
-.stars{
-    gap:6px;
-}
-
-.star{
-    width:28px;
-    height:28px;
-}
-
-}
-
-@media(max-width:480px){
-
-.feedback-page{
-    padding:20px 14px;
-}
-
-.feedback-card{
-    padding:22px;
-    border-radius:16px;
-}
-
-.feedback-header h1{
-    font-size:1.45rem;
-}
-
-.feedback-header p{
-    font-size:14px;
-}
-
-.submit-feedback-btn{
-    height:52px;
-    font-size:15px;
-}
-
+  .fb-header h1 {
+    font-size: 24px;
+  }
 }

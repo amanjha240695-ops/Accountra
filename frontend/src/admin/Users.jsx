@@ -157,6 +157,16 @@ function Users() {
   };
 
 
+  const formatDate = (iso) => {
+    try {
+      if (!iso) return null;
+      return new Date(iso).toLocaleDateString();
+    } catch (e) {
+      return null;
+    }
+  };
+
+
 
 
 
@@ -401,19 +411,13 @@ User Details
 
 <p>
 <strong>Joined:</strong>{" "}
-{new Date(selectedUser.createdAt).toLocaleDateString()}
+{formatDate(selectedUser.createdAt) ?? "N/A"}
 </p>
 
 
 <p>
 <strong>Last Login:</strong>{" "}
-{
-selectedUser.lastLogin
-?
-new Date(selectedUser.lastLogin).toLocaleDateString()
-:
-"Never"
-}
+{formatDate(selectedUser.lastLogin) ?? "Never"}
 </p>
 
 

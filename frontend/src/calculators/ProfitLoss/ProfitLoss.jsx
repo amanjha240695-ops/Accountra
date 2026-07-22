@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./ProfitLoss.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateProfitLoss } from "./ProfitLossUtils";
 import ProfitLossResult from "./ProfitLossResult";
 import ProfitLossHistory from "./ProfitLossHistory";
 
 function ProfitLoss() {
+  const checkLogin = useRequireLogin();
+
   const [formData, setFormData] = useState({
     costPrice: "",
     sellingPrice: "",
@@ -23,9 +25,11 @@ function ProfitLoss() {
   };
 
   // Calculate
-  const handleCalculate = () => {
-    const response = calculateProfitLoss(formData);
+const handleCalculate = () => {
 
+  if (!checkLogin()) return;
+
+  const response = calculateProfitLoss(formData);
     if (!response.success) {
       alert(response.message);
       return;

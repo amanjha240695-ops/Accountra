@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./IncomeTax.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateIncomeTax } from "./IncomeTaxUtils";
 import IncomeTaxResult from "./IncomeTaxResult";
 import IncomeTaxHistory from "./IncomeTaxHistory";
 
 function IncomeTax() {
+  const checkLogin = useRequireLogin();
+
   const [formData, setFormData] = useState({
     income: "",
     regime: "new",
@@ -22,8 +24,10 @@ function IncomeTax() {
   };
 
   const handleCalculate = () => {
-    const response = calculateIncomeTax(formData);
 
+  if (!checkLogin()) return;
+
+  const response = calculateIncomeTax(formData);
     if (!response.success) {
       alert(response.message);
       return;

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./Loan.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateLoan } from "./LoanUtils";
 import LoanResult from "./LoanResult";
 import LoanHistory from "./LoanHistory";
 
 function Loan() {
+  const checkLogin = useRequireLogin();
+
   const [formData, setFormData] = useState({
     monthlyIncome: "",
     existingEMI: "",
@@ -27,8 +29,10 @@ function Loan() {
 
   // Calculate Loan Eligibility
   const handleCalculate = () => {
-    const response = calculateLoan(formData);
 
+  if (!checkLogin()) return;
+
+  const response = calculateLoan(formData);
     if (!response.success) {
       alert(response.message);
       return;

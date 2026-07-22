@@ -1,244 +1,194 @@
-/* ==========================================================================
-   BLUE & WHITE THEME CONFIGURATION
-   ========================================================================== */
-:root {
-  --bg-color: #f8fafc;
-  --primary-blue: #2563eb;
-  --primary-blue-hover: #1d4ed8;
-  --primary-blue-light: rgba(37, 99, 235, 0.15);
-  --dark-text: #0f172a;
-  --secondary-text: #64748b;
-  --border-color: #e2e8f0;
-  --white: #ffffff;
-  --success: #16a34a;
-  --error: #dc2626;
-  
-  --radius-lg: 16px;
-  --radius-md: 8px;
-  --transition-fast: 0.2s ease;
-}
-
-/* ==========================================================================
-   CORE RESET
-   ========================================================================== */
-* {
+/* Universal Reset for Register Component */
+.rg-page,
+.rg-page * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-body {
-  background-color: var(--bg-color);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-/* ==========================================================================
-   RESPONSIVE LAYOUT CONTAINER
-   ========================================================================== */
-.register-page {
+/* Page Layout */
+.rg-page {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--bg-color);
-  padding: 24px 16px;
+  background-color: #f8fafc;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.register-card {
-  background-color: var(--white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 32px 24px;
+/* Card Wrapper */
+.rg-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 36px 28px;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
 }
 
 @media (min-width: 480px) {
-  .register-card {
+  .rg-card {
     padding: 40px;
   }
 }
 
-/* ==========================================================================
-   HEADER SECTION
-   ========================================================================== */
-.register-header {
+/* Header */
+.rg-header {
   text-align: center;
   margin-bottom: 24px;
 }
 
-.register-header h1 {
-  color: var(--dark-text);
-  font-size: 24px;
+.rg-header h1 {
+  color: #0f172a;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
-.register-header p {
-  color: var(--secondary-text);
+.rg-header p {
+  color: #64748b;
   font-size: 14px;
   line-height: 1.5;
 }
 
-/* ==========================================================================
-   ALERT SYSTEM (Success / Error states)
-   ========================================================================== */
-.alert {
+/* Alerts */
+.rg-alert {
   padding: 12px 16px;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   font-size: 14px;
-  font-weight: 500;
   margin-bottom: 20px;
-  text-align: left;
-  line-height: 1.4;
+  text-align: center;
 }
 
-.alert.error {
+.rg-alert.error {
   background-color: #fef2f2;
-  border: 1px solid rgba(220, 38, 38, 0.2);
-  color: var(--error);
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }
 
-.alert.success {
+.rg-alert.success {
   background-color: #f0fdf4;
-  border: 1px solid rgba(22, 163, 74, 0.2);
-  color: var(--success);
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
 }
 
-/* ==========================================================================
-   ANTI-VANISHING INPUT GROUPS (Supports Inline Lucide Icons)
-   ========================================================================== */
-.input-group {
-  margin-bottom: 16px !important;
-  position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  width: 100% !important;
-  height: 46px !important;
-  min-height: 46px !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  border: 1px solid var(--border-color) !important;
-  border-radius: var(--radius-md) !important;
-  background-color: var(--white) !important;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+/* Form Structure */
+.rg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* Focus bounding box highlighting */
-.input-group:focus-within {
-  border-color: var(--primary-blue) !important;
-  box-shadow: 0 0 0 4px var(--primary-blue-light) !important;
+/* Input Containers with Left Icons */
+.rg-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
-/* Alignment rules for Lucide SVG elements sitting on the left side */
-.input-group > svg:not(.eye-btn svg) {
-  position: absolute !important;
-  left: 14px !important;
-  color: var(--secondary-text) !important;
-  pointer-events: none !important;
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+.rg-icon {
+  position: absolute;
+  left: 14px;
+  color: #64748b;
+  pointer-events: none;
 }
 
-/* Target input values inside the bounded icons safely */
-.input-group input {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  padding: 12px 16px 12px 42px !important; /* Extra padding left for icons */
-  border: none !important;
-  background: transparent !important;
-  font-size: 15px !important;
-  color: var(--dark-text) !important;
-  outline: none !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.input-group input::placeholder {
-  color: var(--secondary-text) !important;
-  opacity: 0.6 !important;
-}
-
-/* Custom right offset rules specifically for password entries */
-.input-group.password-group input {
-  padding-right: 46px !important;
-}
-
-/* ==========================================================================
-   PASSWORD TOGGLE INTERACTION EYE BUTTON
-   ========================================================================== */
-.eye-btn {
-  position: absolute !important;
-  right: 4px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  background: transparent !important;
-  border: none !important;
-  width: 38px !important;
-  height: 38px !important;
-  color: var(--secondary-text) !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.password-hint {
-  font-size: 12px;
-  color: var(--secondary-text);
-  margin: -10px 0 20px 4px;
-  text-align: left;
-}
-
-/* ==========================================================================
-   SUBMISSION CONTROLS
-   ========================================================================== */
-.register-btn {
+.rg-input {
   width: 100%;
   height: 46px;
-  background-color: var(--primary-blue);
-  color: var(--white);
+  padding: 0 16px 0 42px; /* Extra left padding to make room for icon */
+  font-size: 14px;
+  color: #0f172a;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.rg-input.password-input {
+  padding-right: 44px; /* Extra right padding for show/hide eye button */
+}
+
+.rg-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.rg-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Password Toggle Eye Button */
+.rg-eye-btn {
+  position: absolute;
+  right: 10px;
+  background: transparent;
   border: none;
-  border-radius: var(--radius-md);
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+
+.rg-eye-btn:hover {
+  color: #0f172a;
+}
+
+/* Password Hint */
+.rg-password-hint {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: -6px;
+  margin-bottom: 4px;
+}
+
+/* Submit Button */
+.rg-submit-btn {
+  width: 100%;
+  height: 48px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
-  transition: background-color var(--transition-fast);
+  transition: background-color 0.2s ease;
+  margin-top: 4px;
 }
 
-.register-btn:hover:not(:disabled) {
-  background-color: var(--primary-blue-hover);
+.rg-submit-btn:hover:not(:disabled) {
+  background-color: #1d4ed8;
 }
 
-.register-btn:disabled {
+.rg-submit-btn:disabled {
   background-color: #93c5fd;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-/* ==========================================================================
-   NAVIGATION FOOTER LINKS
-   ========================================================================== */
-.register-footer {
+/* Footer Link */
+.rg-footer {
   text-align: center;
   font-size: 14px;
-  color: var(--secondary-text);
+  color: #64748b;
   margin-top: 24px;
 }
 
-.register-footer a {
-  color: var(--primary-blue);
-  text-decoration: none;
+.rg-footer a {
+  color: #2563eb;
   font-weight: 600;
+  text-decoration: none;
   margin-left: 4px;
-  transition: color var(--transition-fast);
 }
 
-.register-footer a:hover {
-  color: var(--primary-blue-hover);
+.rg-footer a:hover {
   text-decoration: underline;
 }

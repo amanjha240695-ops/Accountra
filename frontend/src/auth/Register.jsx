@@ -97,10 +97,9 @@ function Register() {
   };
 
   return (
-    <div className="register-page">
-      <div className="register-card">
-
-        <div className="register-header">
+    <div className="rg-page">
+      <div className="rg-card">
+        <div className="rg-header">
           <h1>Create Account</h1>
           <p>
             Join Accountra and manage your accounting calculations smarter.
@@ -108,60 +107,61 @@ function Register() {
         </div>
 
         {message && (
-          <div className={`alert ${messageType}`}>
+          <div className={`rg-alert ${messageType}`}>
             {message}
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
-
-          <div className="input-group">
-            <User size={18} />
+        <form onSubmit={handleSubmit} className="rg-form">
+          <div className="rg-input-box">
+            <User size={18} className="rg-icon" />
             <input
               type="text"
               name="username"
+              className="rg-input"
               placeholder="Username"
               value={formData.username}
               onChange={handleChange}
             />
           </div>
 
-          <div className="input-group">
-            <Mail size={18} />
+          <div className="rg-input-box">
+            <Mail size={18} className="rg-icon" />
             <input
               type="email"
               name="email"
+              className="rg-input"
               placeholder="Email Address"
               value={formData.email}
               onChange={handleChange}
             />
           </div>
 
-          <div className="input-group">
-            <Phone size={18} />
+          <div className="rg-input-box">
+            <Phone size={18} className="rg-icon" />
             <input
               type="text"
               name="phoneNumber"
+              className="rg-input"
               placeholder="Phone Number (Optional)"
               value={formData.phoneNumber}
               onChange={handleChange}
             />
           </div>
 
-          <div className="input-group password-group">
-            <Lock size={18} />
-
+          <div className="rg-input-box">
+            <Lock size={18} className="rg-icon" />
             <input
               type={showPassword ? "text" : "password"}
               name="password"
+              className="rg-input password-input"
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
             />
-
             <button
               type="button"
-              className="eye-btn"
+              className="rg-eye-btn"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
@@ -172,27 +172,22 @@ function Register() {
             </button>
           </div>
 
-          <p className="password-hint">
+          <p className="rg-password-hint">
             Password should be at least 6 characters long.
           </p>
 
           <button
             type="submit"
-            className="register-btn"
+            className="rg-submit-btn"
             disabled={loading}
           >
             {loading ? "Creating Account..." : "Create Account"}
           </button>
-
         </form>
 
-        <div className="register-footer">
-          Already have an account?{" "}
-          <Link to="/login">
-            Login
-          </Link>
+        <div className="rg-footer">
+          Already have an account? <Link to="/login">Login</Link>
         </div>
-
       </div>
     </div>
   );

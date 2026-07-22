@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./SIP.css";
 
+import useRequireLogin from "../../hooks/useRequireLogin";
+
 import { calculateSIP } from "./SIPUtils";
 import SIPResult from "./SIPResult";
 import SIPHistory from "./SIPHistory";
 
 
 function SIP() {
+
+  const checkLogin = useRequireLogin();
 
 
   const [monthlyInvestment, setMonthlyInvestment] = useState("");
@@ -19,7 +23,12 @@ function SIP() {
 
 
 
+
   const handleCalculate = () => {
+
+
+    if (!checkLogin()) return;
+
 
 
     const response = calculateSIP({
@@ -29,6 +38,8 @@ function SIP() {
       duration,
 
     });
+
+
 
 
 
@@ -42,7 +53,11 @@ function SIP() {
 
 
 
+
+
     setResult(response.result);
+
+
 
 
 
@@ -57,6 +72,8 @@ function SIP() {
 
 
   };
+
+
 
 
 
@@ -80,11 +97,16 @@ function SIP() {
 
 
 
+
+
   const clearHistory = ()=>{
 
     setHistory([]);
 
   };
+
+
+
 
 
 
@@ -103,7 +125,9 @@ function SIP() {
 
 
 
+
       {/* Monthly Investment */}
+
 
       <div className="form-group">
 
@@ -134,7 +158,10 @@ function SIP() {
 
 
 
+
+
       {/* Return Rate */}
+
 
       <div className="form-group">
 
@@ -165,7 +192,10 @@ function SIP() {
 
 
 
+
+
       {/* Duration */}
+
 
       <div className="form-group">
 
@@ -198,6 +228,8 @@ function SIP() {
 
 
 
+
+
       {/* Buttons */}
 
 
@@ -215,6 +247,7 @@ function SIP() {
           Calculate
 
         </button>
+
 
 
 
@@ -242,7 +275,10 @@ function SIP() {
 
 
 
+
+
       {/* Result */}
+
 
       <SIPResult
 
@@ -255,7 +291,11 @@ function SIP() {
 
 
 
+
+
+
       {/* History */}
+
 
       <SIPHistory
 
@@ -264,6 +304,7 @@ function SIP() {
         clearHistory={clearHistory}
 
       />
+
 
 
 

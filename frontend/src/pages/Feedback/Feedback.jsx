@@ -7,10 +7,14 @@ import {
   Loader2,
 } from "lucide-react";
 import api from "../../services/api";
+import useRequireLogin from "../../hooks/useRequireLogin"; // Adjust import path if needed
 import "./Feedback.css";
 
 function Feedback() {
   const MAX_LENGTH = 500;
+
+  // Initialize custom login check hook
+  const checkLogin = useRequireLogin();
 
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -23,6 +27,11 @@ function Feedback() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 1. Check if user is logged in before running submit logic
+    if (!checkLogin()) {
+      return; // Stops submission & redirects to /login via your hook
+    }
 
     setSuccess("");
     setError("");
@@ -63,10 +72,10 @@ function Feedback() {
   };
 
   return (
-    <div className="feedback-page">
-      <div className="feedback-card">
-        <div className="feedback-header">
-          <div className="feedback-icon">
+    <div className="fb-page">
+      <div className="fb-card">
+        <div className="fb-header">
+          <div className="fb-icon">
             <MessageSquare size={32} />
           </div>
 
@@ -78,16 +87,16 @@ function Feedback() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="feedback-form">
-          <div className="rating-section">
-            <label>How would you rate your experience?</label>
+        <form onSubmit={handleSubmit} className="fb-form">
+          <div className="fb-rating-section">
+            <label className="fb-label">How would you rate your experience?</label>
 
-            <div className="stars">
+            <div className="fb-stars">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   type="button"
                   key={star}
-                  className="star-btn"
+                  className="fb-star-btn"
                   onClick={() => setRating(star)}
                   onMouseEnter={() => setHoverRating(star)}
                   onMouseLeave={() => setHoverRating(0)}
@@ -96,15 +105,15 @@ function Feedback() {
                     size={32}
                     className={
                       star <= (hoverRating || rating)
-                        ? "star filled"
-                        : "star"
+                        ? "fb-star filled"
+                        : "fb-star"
                     }
                   />
                 </button>
               ))}
             </div>
 
-            <span className="rating-text">
+            <span className="fb-rating-text">
               {rating === 0 && "Select Rating"}
               {rating === 1 && "Poor"}
               {rating === 2 && "Fair"}
@@ -114,29 +123,30 @@ function Feedback() {
             </span>
           </div>
 
-          <div className="input-group">
-            <label>Your Feedback</label>
+          <div className="fb-field-group">
+            <label className="fb-label">Your Feedback</label>
 
             <textarea
+              className="fb-textarea"
               placeholder="Tell us what you liked, what can be improved, or report an issue..."
               value={message}
               maxLength={MAX_LENGTH}
               onChange={(e) => setMessage(e.target.value)}
             />
 
-            <div className="character-count">
+            <div className="fb-character-count">
               {message.length}/{MAX_LENGTH}
             </div>
           </div>
 
           {error && (
-            <div className="feedback-error">
+            <div className="fb-error">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="feedback-success">
+            <div className="fb-success">
               <CheckCircle size={18} />
               <span>{success}</span>
             </div>
@@ -144,7 +154,7 @@ function Feedback() {
 
           <button
             type="submit"
-            className="submit-feedback-btn"
+            className="fb-submit-btn"
             disabled={loading}
           >
             {loading ? (

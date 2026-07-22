@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./EMI.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateEMI } from "./EMIUtils";
 import EMIResult from "./EMIResult";
 import EMIHistory from "./EMIHistory";
 
 function EMI() {
+  const checkLogin = useRequireLogin();
+
   const [formData, setFormData] = useState({
     amount: "",
     rate: "",
@@ -25,9 +27,11 @@ function EMI() {
   };
 
   // Calculate EMI
-  const handleCalculate = () => {
-    const response = calculateEMI(formData);
+ const handleCalculate = () => {
 
+  if (!checkLogin()) return;
+
+  const response = calculateEMI(formData);
     if (!response.success) {
       alert(response.message);
       return;

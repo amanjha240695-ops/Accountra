@@ -74,9 +74,7 @@ export const calculateGST = ({
         totalGST,
         finalAmount: amt + totalGST,
       };
-    }
-
-    if (taxType === "cgst_sgst") {
+    } else if (taxType === "cgst_sgst") {
       result = {
         mode: "CGST + SGST",
         originalAmount: amt,
@@ -85,9 +83,7 @@ export const calculateGST = ({
         totalGST,
         finalAmount: amt + totalGST,
       };
-    }
-
-    if (taxType === "utgst_cgst") {
+    } else if (taxType === "utgst_cgst") {
       result = {
         mode: "CGST + UTGST",
         originalAmount: amt,

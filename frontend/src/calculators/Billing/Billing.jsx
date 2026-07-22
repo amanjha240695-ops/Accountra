@@ -1,12 +1,17 @@
 import { useState } from "react";
 import "./Billing.css";
 
+import useRequireLogin from "../../hooks/useRequireLogin";
+
 import { calculateBilling } from "./BillingUtils";
 import BillingResult from "./BillingResult";
 import BillingHistory from "./BillingHistory";
 
 
 function Billing() {
+
+  const checkLogin = useRequireLogin();
+
 
   const [customerName, setCustomerName] = useState("");
   const [productName, setProductName] = useState("");
@@ -23,7 +28,12 @@ function Billing() {
 
 
 
+
   const handleCalculate = () => {
+
+
+    if (!checkLogin()) return;
+
 
 
     const response = calculateBilling({
@@ -39,6 +49,7 @@ function Billing() {
 
 
 
+
     if(!response.success){
 
       alert(response.message);
@@ -49,14 +60,20 @@ function Billing() {
 
 
 
+
     setResult(response.result);
 
 
 
+
     setHistory((prev)=>[
+
       response.result,
+
       ...prev
+
     ]);
+
 
   };
 
@@ -64,7 +81,9 @@ function Billing() {
 
 
 
+
   const resetForm = ()=>{
+
 
     setCustomerName("");
     setProductName("");
@@ -75,7 +94,10 @@ function Billing() {
 
     setResult(null);
 
+
   };
+
+
 
 
 
@@ -90,6 +112,8 @@ function Billing() {
 
 
 
+
+
   return (
 
     <div className="billing-container">
@@ -98,6 +122,7 @@ function Billing() {
       <h1>
         🧾 Billing Calculator
       </h1>
+
 
 
 
@@ -116,6 +141,8 @@ function Billing() {
         />
 
       </div>
+
+
 
 
 
@@ -140,6 +167,8 @@ function Billing() {
 
 
 
+
+
       <div className="form-group">
 
         <label>
@@ -154,6 +183,8 @@ function Billing() {
         />
 
       </div>
+
+
 
 
 
@@ -178,6 +209,8 @@ function Billing() {
 
 
 
+
+
       <div className="form-group">
 
         <label>
@@ -191,6 +224,8 @@ function Billing() {
         />
 
       </div>
+
+
 
 
 
@@ -222,6 +257,7 @@ function Billing() {
 
 
 
+
       <div className="button-group">
 
 
@@ -229,8 +265,11 @@ function Billing() {
           className="calculate-btn"
           onClick={handleCalculate}
         >
+
           Calculate
+
         </button>
+
 
 
 
@@ -238,11 +277,14 @@ function Billing() {
           className="reset-btn"
           onClick={resetForm}
         >
+
           Reset
+
         </button>
 
 
       </div>
+
 
 
 
@@ -255,10 +297,14 @@ function Billing() {
 
 
 
+
+
+
       <BillingHistory
         history={history}
         clearHistory={clearHistory}
       />
+
 
 
 

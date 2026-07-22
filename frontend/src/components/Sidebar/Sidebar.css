@@ -14,7 +14,6 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   z-index: 1000;
 }
 
@@ -75,6 +74,9 @@
   flex-direction: column;
   gap: 6px;
   padding: 18px 10px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .menu-link {
@@ -129,11 +131,11 @@
    SCROLLBAR
 ===================================== */
 
-.sidebar::-webkit-scrollbar {
+.sidebar-menu::-webkit-scrollbar {
   width: 5px;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.sidebar-menu::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 20px;
 }

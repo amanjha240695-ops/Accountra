@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./BalanceSheet.css";
 
+import useRequireLogin from "../../hooks/useRequireLogin";
+
 import { calculateBalanceSheet } from "./BalanceSheetUtils";
 import BalanceSheetResult from "./BalanceSheetResult";
 import BalanceSheetHistory from "./BalancesheetHistory";
 
 
 function BalanceSheet() {
+
+  const checkLogin = useRequireLogin();
 
 
   // Assets
@@ -17,12 +21,10 @@ function BalanceSheet() {
   const [equipment, setEquipment] = useState("");
 
 
-
   // Liabilities
 
   const [loan, setLoan] = useState("");
   const [creditors, setCreditors] = useState("");
-
 
 
   const [result, setResult] = useState(null);
@@ -30,8 +32,10 @@ function BalanceSheet() {
 
 
 
+  const handleCalculate = () => {
 
-  const handleCalculate = ()=>{
+
+    if (!checkLogin()) return;
 
 
     const response = calculateBalanceSheet({
@@ -47,7 +51,6 @@ function BalanceSheet() {
 
 
 
-
     if(!response.success){
 
       alert(response.message);
@@ -55,8 +58,6 @@ function BalanceSheet() {
       return;
 
     }
-
-
 
 
 
@@ -73,10 +74,7 @@ function BalanceSheet() {
     ]);
 
 
-
   };
-
-
 
 
 
@@ -97,8 +95,6 @@ function BalanceSheet() {
 
 
   };
-
-
 
 
 
@@ -136,6 +132,7 @@ function BalanceSheet() {
 
 
 
+
       <div className="form-group">
 
         <label>
@@ -150,6 +147,7 @@ function BalanceSheet() {
         />
 
       </div>
+
 
 
 
@@ -175,6 +173,7 @@ function BalanceSheet() {
 
 
 
+
       <div className="form-group">
 
         <label>
@@ -189,6 +188,7 @@ function BalanceSheet() {
         />
 
       </div>
+
 
 
 
@@ -219,6 +219,8 @@ function BalanceSheet() {
       <h2>
         Liabilities
       </h2>
+
+
 
 
 
@@ -270,11 +272,8 @@ function BalanceSheet() {
 
 
         <button
-
           className="calculate-btn"
-
           onClick={handleCalculate}
-
         >
 
           Calculate
@@ -286,17 +285,13 @@ function BalanceSheet() {
 
 
         <button
-
           className="reset-btn"
-
           onClick={resetForm}
-
         >
 
           Reset
 
         </button>
-
 
 
       </div>
@@ -307,11 +302,8 @@ function BalanceSheet() {
 
 
 
-
       <BalanceSheetResult
-
         result={result}
-
       />
 
 
@@ -321,11 +313,8 @@ function BalanceSheet() {
 
 
       <BalanceSheetHistory
-
         history={history}
-
         clearHistory={clearHistory}
-
       />
 
 

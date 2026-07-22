@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
 import "./Hero.css";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+const token = localStorage.getItem("token");
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/");
+};
   return (
     <section className="hero">
 
@@ -37,15 +45,24 @@ const Hero = () => {
 </div>
 
 <div className="auth-buttons">
+  {!token ? (
+    <>
+      <Link to="/login" className="login-btn-home">
+        Login
+      </Link>
 
-  <Link to="/login" className="login-btn-home">
-    Login
-  </Link>
-
-  <Link to="/register" className="register-btn-home">
-    Create Account
-  </Link>
-
+      <Link to="/register" className="register-btn-home">
+        Create Account
+      </Link>
+    </>
+  ) : (
+    <button
+      className="login-btn-home"
+      onClick={handleLogout}
+    >
+      Logout
+    </button>
+  )}
 </div>
 
       </div>

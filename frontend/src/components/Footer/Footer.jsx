@@ -1,191 +1,61 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
-
 function Footer() {
-
-
   return (
-
-    <footer className="footer">
-
-
-      <div className="footer-container">
-
-
-
-
-
+    <footer className="ft-footer">
+      <div className="ft-container">
         {/* Brand */}
-
-        <div className="footer-brand">
-
-
-          <h2>
-            Accountra
-          </h2>
-
-
+        <div className="ft-brand">
+          <h2>Accountra</h2>
           <p>
-
-            Smart financial calculators for GST,
-            TDS, Income Tax, EMI, Accounting and
-            Business planning.
-
+            Smart financial calculators for GST, TDS, Income Tax, EMI,
+            Accounting, and Business planning.
           </p>
-
-
         </div>
-
-
-
-
-
-
-
 
         {/* Calculators */}
-
-        <div className="footer-links">
-
-
-          <h3>
-            Calculators
-          </h3>
-
-
-          <a href="#">
-            GST Calculator
-          </a>
-
-
-          <a href="#">
-            TDS Calculator
-          </a>
-
-
-          <a href="#">
-            Income Tax Calculator
-          </a>
-
-
-          <a href="#">
-            EMI Calculator
-          </a>
-
-
-          <a href="#">
-            SIP Calculator
-          </a>
-
-
+        <div className="ft-links">
+          <h3>Calculators</h3>
+          <Link to="/calculators/gst">GST Calculator</Link>
+          <Link to="/calculators/tds">TDS Calculator</Link>
+          <Link to="/calculators/income-tax">Income Tax Calculator</Link>
+          <Link to="/calculators/emi">EMI Calculator</Link>
+          <Link to="/calculators/sip">SIP Calculator</Link>
         </div>
 
-
-
-
-
-
-
-
-        {/* Business */}
-
-        <div className="footer-links">
-
-
-          <h3>
-            Business Tools
-          </h3>
-
-
-          <a href="#">
-            Salary Calculator
-          </a>
-
-
-          <a href="#">
-            Profit & Loss
-          </a>
-
-
-          <a href="#">
-            Billing Calculator
-          </a>
-
-
-          <a href="#">
-            Balance Sheet
-          </a>
-
-
-          <a href="#">
-            Depreciation
-          </a>
-
-
+        {/* Business Tools */}
+        <div className="ft-links">
+          <h3>Business Tools</h3>
+          <Link to="/calculators/salary">Salary Calculator</Link>
+          <Link to="/calculators/profit-loss">Profit & Loss</Link>
+          <Link to="/calculators/billing">Billing Calculator</Link>
+          <Link to="/calculators/balance-sheet">Balance Sheet</Link>
+          <Link to="/calculators/depreciation">Depreciation</Link>
         </div>
-
-
-
-
-
-
-
 
         {/* Company */}
-
-        <div className="footer-links">
-
-          <h3>
-            Company
-          </h3>
-
-
-          <a href="">
-            About Us
-          </a>
-
-
-          <a href="#">
-            Contact
-          </a>
-
-
-          <a href="about">
-            Privacy Policy
-          </a>
-
-
-          <a href="">
-            Disclaimer
-          </a>
+        <div className="ft-links">
+          <h3>Company</h3>
+          <Link to="/about">About Us</Link>
+          <Link to="/feedback">Feedback</Link>
         </div>
       </div>
 
       {/* Update Banner */}
-
-      <div className="footer-update">
-
-        <span>
-          🚀 Tax Update Promise:
-        </span>
-        Government tax changes are verified and
-        calculators are updated within
-        <strong>
-          3 days
-        </strong>
+      <div className="ft-update">
+        <span>🚀 Tax Update Promise:</span>
+        Government tax changes are verified and calculators are updated within{" "}
+        <strong>3 days</strong>
       </div>
 
       {/* Bottom */}
-      <div className="footer-bottom">
-        <p>
-          © 2026 Accountra. All Rights Reserved.
-        </p>
-        <p>
-          Built with ❤️ for smarter financial decisions.
-        </p>
-
+      <div className="ft-bottom">
+        <p>© 2026 Accountra. All Rights Reserved.</p>
+        <p>Built with ❤️ for smarter financial decisions.</p>
       </div>
     </footer>
   );
 }
+
 export default Footer;

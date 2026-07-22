@@ -5,6 +5,7 @@ import About from "../pages/About/About";
 import Feedback from "../pages/Feedback/Feedback";
 import AllCalculators from "../pages/AllCalculators/AllCalculator";
 import NotFound from "../pages/NotFound/NotFound";
+import Footer from "../components/Footer/Footer";
 
 
 // auth
@@ -30,7 +31,6 @@ import TDS from "../calculators/TDS/TDS";
 import IncomeTax from "../calculators/IncomeTax/IncomeTax";
 import Depreciation from "../calculators/Depreciation/Depreciation";
 import ProfitLoss from "../calculators/ProfitLoss/ProfitLoss";
-import Percentage from "../calculators/Percentage/Percentage";
 
 
 // Admin
@@ -147,16 +147,6 @@ const AppRoutes = () => {
           element={
             <CalculatorLayout>
               <Interest />
-            </CalculatorLayout>
-          }
-        />
-
-
-        <Route
-          path="/calculators/percentage"
-          element={
-            <CalculatorLayout>
-              <Percentage />
             </CalculatorLayout>
           }
         />
@@ -320,6 +310,7 @@ const AppRoutes = () => {
 
       </Routes>
 
+      <Footer />
 
     </BrowserRouter>
 

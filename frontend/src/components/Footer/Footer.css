@@ -1,391 +1,160 @@
-/* ===========================
-   FOOTER MAIN
-=========================== */
-
-
-.footer {
-
-  margin-top:80px;
-
-  background:
-
-  linear-gradient(
-    135deg,
-    #020617,
-    #111827
-  );
-
-  color:white;
-
-  padding:60px 30px 20px;
-
-
+/* ==========================================================================
+   BLUE & WHITE THEME CONFIGURATION (FOOTER)
+   ========================================================================== */
+:root {
+  --bg-color: #f8fafc;
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
+  --primary-blue-light: rgba(37, 99, 235, 0.08);
+  --dark-text: #0f172a;
+  --secondary-text: #64748b;
+  --border-color: #e2e8f0;
+  --white: #ffffff;
+  
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --transition-fast: 0.2s ease;
 }
 
-
-
-
-
-/* ===========================
-   FOOTER CONTAINER
-=========================== */
-
-
-.footer-container {
-
-
-  max-width:1200px;
-
-
-  margin:auto;
-
-
-  display:grid;
-
-
-  grid-template-columns:
-
-  1.5fr 1fr 1fr 1fr;
-
-
-  gap:40px;
-
-
+/* Reset Box-Sizing for Footer Component */
+.ft-footer,
+.ft-footer * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-
-
-
-
-/* ===========================
-   BRAND
-=========================== */
-
-
-.footer-brand h2 {
-
-
-  font-size:2.5rem;
-
-
-  color:#60a5fa;
-
-
-  margin-bottom:15px;
-
-
+/* Main Footer Container */
+.ft-footer {
+  background-color: var(--white);
+  border-top: 1px solid var(--border-color);
+  padding: 48px 20px 24px 20px;
+  color: var(--dark-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin-top: auto;
 }
 
-
-
-.footer-brand p {
-
-
-  color:#cbd5e1;
-
-
-  line-height:1.8;
-
-
-  max-width:300px;
-
-
+/* Grid Layout */
+.ft-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
-
-
-
-
-
-/* ===========================
-   LINKS
-=========================== */
-
-
-.footer-links {
-
-
-  display:flex;
-
-
-  flex-direction:column;
-
-
-  gap:12px;
-
-
+/* Brand Section */
+.ft-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-
-
-.footer-links h3 {
-
-
-  color:white;
-
-
-  font-size:1.2rem;
-
-
-  margin-bottom:15px;
-
-
+.ft-brand h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary-blue);
+  letter-spacing: -0.5px;
 }
 
-
-
-.footer-links a {
-
-
-  text-decoration:none;
-
-
-  color:#cbd5e1;
-
-
-  transition:.3s;
-
-
-  font-size:15px;
-
-
+.ft-brand p {
+  font-size: 14px;
+  color: var(--secondary-text);
+  line-height: 1.6;
+  max-width: 320px;
 }
 
-
-
-.footer-links a:hover {
-
-
-  color:#60a5fa;
-
-
-  transform:translateX(5px);
-
-
+/* Link Columns */
+.ft-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-
-
-
-
-
-
-
-/* ===========================
-   UPDATE BANNER
-=========================== */
-
-
-.footer-update {
-
-
-  max-width:1200px;
-
-
-  margin:50px auto 30px;
-
-
-  padding:20px 25px;
-
-
-  border-radius:18px;
-
-
-  background:
-
-
-  linear-gradient(
-
-  135deg,
-
-  #1e3a8a,
-
-  #2563eb
-
-  );
-
-
-  text-align:center;
-
-
-  font-size:16px;
-
-
-  box-shadow:
-
-
-  0 15px 35px rgba(37,99,235,.3);
-
-
+.ft-links h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: 4px;
 }
 
-
-
-.footer-update span {
-
-
-  font-weight:700;
-
-
-  color:#facc15;
-
-
+.ft-links a {
+  font-size: 14px;
+  color: var(--secondary-text);
+  text-decoration: none;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  width: fit-content;
 }
 
-
-
-.footer-update strong {
-
-
-  margin-left:8px;
-
-
-  font-size:20px;
-
-
-  color:#fef08a;
-
-
+.ft-links a:hover {
+  color: var(--primary-blue);
+  transform: translateX(2px);
 }
 
-
-
-
-
-
-
-/* ===========================
-   BOTTOM
-=========================== */
-
-
-.footer-bottom {
-
-
-  max-width:1200px;
-
-
-  margin:auto;
-
-
-  padding-top:25px;
-
-
-  border-top:1px solid rgba(255,255,255,.15);
-
-
-  display:flex;
-
-
-  justify-content:space-between;
-
-
-  gap:20px;
-
-
+/* Update Banner */
+.ft-update {
+  max-width: 1200px;
+  margin: 0 auto 32px auto;
+  background-color: var(--primary-blue-light);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-size: 14px;
+  color: var(--dark-text);
+  text-align: center;
+  line-height: 1.5;
 }
 
-
-
-.footer-bottom p {
-
-
-  color:#94a3b8;
-
-
-  font-size:14px;
-
-
+.ft-update span {
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-right: 6px;
 }
 
-
-
-
-
-
-
-
-/* ===========================
-   RESPONSIVE
-=========================== */
-
-
-@media(max-width:900px){
-
-
-.footer-container{
-
-
-grid-template-columns:
-
-repeat(2,1fr);
-
-
+.ft-update strong {
+  color: var(--primary-blue-hover);
 }
 
-
-
+/* Bottom Row */
+.ft-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--secondary-text);
 }
 
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .ft-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
 
-
-
-@media(max-width:600px){
-
-
-
-.footer{
-
-
-padding:45px 20px 20px;
-
-
+  .ft-brand {
+    grid-column: span 2;
+  }
 }
 
+@media (max-width: 540px) {
+  .ft-container {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 
+  .ft-brand {
+    grid-column: span 1;
+  }
 
-
-.footer-container{
-
-
-grid-template-columns:1fr;
-
-
-}
-
-
-
-.footer-brand p{
-
-
-max-width:100%;
-
-
-}
-
-
-
-.footer-bottom{
-
-
-flex-direction:column;
-
-
-text-align:center;
-
-
-}
-
-
-
-.footer-update{
-
-
-font-size:14px;
-
-
-}
-
-
-
+  .ft-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
 }

@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import "./Login.css";
 import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -26,7 +28,6 @@ function Login() {
     }));
   };
 
-
   const validateForm = () => {
     const email = formData.email.trim();
     const password = formData.password.trim();
@@ -36,8 +37,7 @@ function Login() {
       return false;
     }
 
-    const emailRegex =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
       alert("Please enter a valid email address.");
@@ -52,7 +52,6 @@ function Login() {
     return true;
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,316 +65,140 @@ function Login() {
         password: formData.password,
       });
 
-
       const { token, user, message } = response.data;
 
-
       // Role checking
-      if (
-        formData.role === "admin" &&
-        user.role !== "admin"
-      ) {
-
+      if (formData.role === "admin" && user.role !== "admin") {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        alert(
-          "Access denied.\nThis account is not an administrator."
-        );
-
+        alert("Access denied.\nThis account is not an administrator.");
         setLoading(false);
         return;
       }
 
-
-      localStorage.setItem(
-        "token",
-        token
-      );
-
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(user)
-      );
-
-
+      login(token, user);
       alert(message);
-
 
       // Redirect based on role
       if (user.role === "admin") {
-
         navigate("/admin");
-
       } else {
-
         navigate("/");
-
       }
-
-
     } catch (error) {
-
-      alert(
-        error.response?.data?.message ||
-        "Login failed."
-      );
-
+      alert(error.response?.data?.message || "Login failed.");
     } finally {
-
       setLoading(false);
-
     }
   };
 
-
   return (
-    <div className="login-page">
-
-      <div className="login-card">
-
-
-        <div className="login-header">
-
-          <div className="logo">
-            A
-          </div>
-
-          <h1>
-            Welcome Back
-          </h1>
-
+    <div className="lg-page">
+      <div className="lg-card">
+        <div className="lg-header">
+          <div className="lg-logo">A</div>
+          <h1>Welcome Back</h1>
           <p>
-            Sign in to your Accountra account and
-            continue managing your finances.
+            Sign in to your Accountra account and continue managing your
+            finances.
           </p>
-
         </div>
 
-
-
-        <form onSubmit={handleSubmit}>
-
-
-          <div className="input-group">
-
-            <label>
-              Email Address
-            </label>
-
+        <form onSubmit={handleSubmit} className="lg-form">
+          <div className="lg-field-group">
+            <label className="lg-label">Email Address</label>
             <input
               type="email"
               name="email"
+              className="lg-input"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
             />
-
           </div>
 
-
-
-          <div className="input-group">
-
-            <label>
-              Password
-            </label>
-
-
-            <div className="password-box">
-
+          <div className="lg-field-group">
+            <label className="lg-label">Password</label>
+            <div className="lg-password-box">
               <input
-                type={
-                  showPassword
-                    ? "text"
-                    : "password"
-                }
+                type={showPassword ? "text" : "password"}
                 name="password"
+                className="lg-input"
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
               />
-
-
               <button
                 type="button"
-                className="show-btn"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
+                className="lg-show-btn"
+                onClick={() => setShowPassword(!showPassword)}
               >
-
-                {
-                  showPassword
-                    ? <EyeOff size={18}/>
-                    : <Eye size={18}/>
-                }
-
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
-
             </div>
-
-
           </div>
 
-
-
-
-          <div className="role-section">
-
-            <label>
-              Login As
-            </label>
-
-
-            <div className="role-options">
-
-
-              <label className="role-option">
-
+          <div className="lg-role-section">
+            <label className="lg-label">Login As</label>
+            <div className="lg-role-options">
+              <label className="lg-role-option">
                 <input
                   type="radio"
                   name="role"
                   value="user"
-                  checked={
-                    formData.role === "user"
-                  }
+                  checked={formData.role === "user"}
                   onChange={handleChange}
                 />
-
-                <span>
-                  User
-                </span>
-
+                <span>User</span>
               </label>
 
-
-
-
-              <label className="role-option">
-
-
+              <label className="lg-role-option">
                 <input
                   type="radio"
                   name="role"
                   value="admin"
-                  checked={
-                    formData.role === "admin"
-                  }
+                  checked={formData.role === "admin"}
                   onChange={handleChange}
                 />
-
-
-                <span>
-                  Admin
-                </span>
-
-
+                <span>Admin</span>
               </label>
-
-
             </div>
-
-
           </div>
 
-
-
-
-
-          <div className="login-options">
-
-
-            <label className="remember">
-
-
+          <div className="lg-options">
+            <label className="lg-remember">
               <input
                 type="checkbox"
                 name="remember"
                 checked={formData.remember}
                 onChange={handleChange}
               />
-
-
-              <span>
-                Remember Me
-              </span>
-
-
+              <span>Remember Me</span>
             </label>
 
-
-
-            <Link
-              to="/forgot-password"
-              className="forgot-link"
-            >
+            <Link to="/forgot-password" className="lg-forgot-link">
               Forgot Password?
             </Link>
-
-
           </div>
-
-
-
-
 
           <button
             type="submit"
-            className={`login-btn ${
-              loading ? "loading" : ""
-            }`}
+            className={`lg-submit-btn ${loading ? "loading" : ""}`}
             disabled={loading}
           >
-
-            {
-              loading
-              ? "Signing In..."
-              : "Sign In"
-            }
-
+            {loading ? "Signing In..." : "Sign In"}
           </button>
-
-
-
         </form>
 
-
-
-
-
-        <div className="divider">
-
-          <span>
-            or
-          </span>
-
+        <div className="lg-divider">
+          <span>or</span>
         </div>
 
-
-
-
-
-        <p className="register-link">
-
-
-          Don't have an account?
-
-
-          <Link to="/register">
-            Create Account
-          </Link>
-
-
+        <p className="lg-register-link">
+          Don't have an account? <Link to="/register">Create Account</Link>
         </p>
-
-
-
-
       </div>
-
-
     </div>
   );
 }

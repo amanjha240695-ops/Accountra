@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./Salary.css";
-
+import useRequireLogin from "../../hooks/useRequireLogin";
 import { calculateSalary } from "./SalaryUtils";
 import SalaryResult from "./SalaryResult";
 import SalaryHistory from "./SalaryHistory";
 
 function Salary() {
+  const checkLogin = useRequireLogin();
+
   const [formData, setFormData] = useState({
     basicSalary: "",
     hra: "",
@@ -25,8 +27,11 @@ function Salary() {
   };
 
   // Calculate Salary
-  const handleCalculate = () => {
-    const response = calculateSalary(formData);
+ const handleCalculate = () => {
+
+  if (!checkLogin()) return;
+
+  const response = calculateSalary(formData);
 
     if (!response.success) {
       alert(response.message);
