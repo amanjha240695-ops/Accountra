@@ -45,14 +45,20 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const user = await prisma.user.create({
-      data: {
-        username,
-        email,
-        phoneNumber,
-        password: hashedPassword,
-      },
-    });
+  // Convert empty phone number to null
+const normalizedPhone =
+  phoneNumber && phoneNumber.trim() !== ""
+    ? phoneNumber.trim()
+    : null;
+
+const user = await prisma.user.create({
+  data: {
+    username,
+    email,
+    phoneNumber: normalizedPhone,
+    password: hashedPassword,
+  },
+});
 
     res.status(201).json({
       success: true,
@@ -115,6 +121,23 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // Update last login
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        lastLogin: new Date(),
+      },
+    });
+
+    // Save login history
+    await prisma.loginHistory.create({
+      data: {
+        userId: user.id,
+        ipAddress: req.ip || "Unknown",
+      },
+    });
 
     // Create JWT Token
  const token = jwt.sign(
