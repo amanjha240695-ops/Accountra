@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import { FaArrowRight } from "react-icons/fa";
 
 import "./Hero.css";

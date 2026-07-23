@@ -1,399 +1,229 @@
 import { useEffect, useState } from "react";
-import { LayoutDashboard } from "lucide-react";
+import {
+  Users,
+  MessageSquare,
+  ShieldCheck,
+  CalendarDays,
+  ArrowRight,
+} from "lucide-react";
+
 import api from "../services/api";
 import "./Admin.css";
 
-
 function Dashboard() {
-
-
   const [dashboard, setDashboard] = useState({
-
     totalUsers: 0,
     totalFeedbacks: 0,
     totalLogins: 0,
     recentUsers: [],
-    recentFeedbacks: []
-
+    recentFeedbacks: [],
   });
 
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
-
     const fetchDashboard = async () => {
-
-
       try {
-
-
         const response = await api.get("/admin/dashboard");
-
-
         setDashboard(response.data.dashboard);
-
-
       } catch (error) {
-
-
-        console.log("Dashboard error:", error);
-
-
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-
-
     };
 
-
     fetchDashboard();
-
-
   }, []);
 
-
-
-
-
   return (
+    <div className="dashboard-page">
+      {/* ================= HEADER ================= */}
 
-    <div className="admin-page">
-
-
-
-      {/* Header */}
-
-      <div className="page-header">
-
-
+      <div className="dashboard-header">
         <div>
-
-          <h2>
-            Dashboard
-          </h2>
-
+          <h1>Welcome Back 👋</h1>
 
           <p>
-            Overview of admin metrics and recent activity.
+            Here's a quick overview of everything happening in your Accountra
+            dashboard.
           </p>
-
-
         </div>
 
-
-
-        <div className="page-icon">
-
-          <LayoutDashboard size={28}/>
-
+        <div className="dashboard-date">
+          <CalendarDays size={18} />
+          {new Date().toLocaleDateString()}
         </div>
-
-
       </div>
 
+      {/* ================= STATS ================= */}
 
+      <div className="stats-grid">
+        <div className="stat-card">
+          <div className="stat-icon blue">
+            <Users size={28} />
+          </div>
 
+          <div>
+            <h2>
+              {loading ? "..." : dashboard.totalUsers}
+            </h2>
 
-
-      {/* Dashboard Cards */}
-
-      <div className="dashboard-cards">
-
-
-
-        <div className="dashboard-card">
-
-          <h3>
-            Total Users
-          </h3>
-
-          <p>
-            {dashboard.totalUsers}
-          </p>
-
+            <p>Total Users</p>
+          </div>
         </div>
 
+        <div className="stat-card">
+          <div className="stat-icon green">
+            <MessageSquare size={28} />
+          </div>
 
+          <div>
+            <h2>
+              {loading ? "..." : dashboard.totalFeedbacks}
+            </h2>
 
-
-
-        <div className="dashboard-card">
-
-          <h3>
-            Total Feedback
-          </h3>
-
-          <p>
-            {dashboard.totalFeedbacks}
-          </p>
-
+            <p>Total Feedback</p>
+          </div>
         </div>
 
+        <div className="stat-card">
+          <div className="stat-icon orange">
+            <ShieldCheck size={28} />
+          </div>
 
+          <div>
+            <h2>
+              {loading ? "..." : dashboard.totalLogins}
+            </h2>
 
-
-
-        <div className="dashboard-card">
-
-          <h3>
-            Total Logins
-          </h3>
-
-          <p>
-            {dashboard.totalLogins}
-          </p>
-
+            <p>Total Logins</p>
+          </div>
         </div>
-
-
-
       </div>
 
+      {/* ================= RECENT USERS ================= */}
 
+      <div className="dashboard-section">
+        <div className="section-header">
+          <h2>Recent Users</h2>
 
+          <button className="view-btn">
+            View All
+            <ArrowRight size={16} />
+          </button>
+        </div>
 
-
-
-
-
-      {/* Recent Users */}
-
-
-      <div className="table-container">
-
-
-        <h3 className="table-title">
-          Recent Users
-        </h3>
-
-
-
-        <table className="admin-table">
-
-
-          <thead>
-
-            <tr>
-
-              <th>
-                Username
-              </th>
-
-
-              <th>
-                Email
-              </th>
-
-
-              <th>
-                Role
-              </th>
-
-
-              <th>
-                Joined
-              </th>
-
-
-            </tr>
-
-
-          </thead>
-
-
-
-
-
-          <tbody>
-
-
-          {
-
-            dashboard.recentUsers.length === 0 ? (
-
+        <div className="table-wrapper">
+          <table className="dashboard-table">
+            <thead>
               <tr>
-
-                <td colSpan="4">
-                  No users found
-                </td>
-
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined</th>
               </tr>
+            </thead>
 
-
-            ) : (
-
-
-              dashboard.recentUsers.map((user)=>(
-
-
-                <tr key={user.id}>
-
-
-                  <td>
-                    {user.username}
-                  </td>
-
-
-                  <td>
-                    {user.email}
-                  </td>
-
-
-                  <td>
-                    {user.role}
-                  </td>
-
-
-                  <td>
-                    {new Date(user.createdAt).toLocaleDateString()}
-                  </td>
-
-
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan="4">Loading...</td>
                 </tr>
+              ) : dashboard.recentUsers.length === 0 ? (
+                <tr>
+                  <td colSpan="4">No users found.</td>
+                </tr>
+              ) : (
+                dashboard.recentUsers.map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <div className="user-info">
+                        <div className="avatar">
+                          {user.username.charAt(0).toUpperCase()}
+                        </div>
 
+                        <span>{user.username}</span>
+                      </div>
+                    </td>
 
-              ))
+                    <td>{user.email}</td>
 
+                    <td>
+                      <span
+                        className={
+                          user.role === "admin"
+                            ? "badge admin"
+                            : "badge user"
+                        }
+                      >
+                        {user.role}
+                      </span>
+                    </td>
 
-            )
-
-
-          }
-
-
-          </tbody>
-
-
-        </table>
-
-
+                    <td>
+                      {new Date(user.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
+      {/* ================= RECENT FEEDBACK ================= */}
 
+      <div className="dashboard-section">
+        <div className="section-header">
+          <h2>Recent Feedback</h2>
 
+          <button className="view-btn">
+            View All
+            <ArrowRight size={16} />
+          </button>
+        </div>
 
-
-
-
-      {/* Recent Feedback */}
-
-
-
-      <div className="table-container">
-
-
-        <h3 className="table-title">
-          Recent Feedback
-        </h3>
-
-
-
-
-
-        <table className="admin-table">
-
-
-          <thead>
-
-
-            <tr>
-
-              <th>
-                User
-              </th>
-
-
-              <th>
-                Message
-              </th>
-
-
-              <th>
-                Date
-              </th>
-
-
-            </tr>
-
-
-          </thead>
-
-
-
-
-
-          <tbody>
-
-
-          {
-
-
-            dashboard.recentFeedbacks.length === 0 ? (
-
-
+        <div className="table-wrapper">
+          <table className="dashboard-table">
+            <thead>
               <tr>
-
-                <td colSpan="3">
-                  No feedback found
-                </td>
-
-
+                <th>User</th>
+                <th>Message</th>
+                <th>Date</th>
               </tr>
+            </thead>
 
-
-            ) : (
-
-
-              dashboard.recentFeedbacks.map((item)=>(
-
-
-                <tr key={item.id}>
-
-
-                  <td>
-                    {item.user?.username}
-                  </td>
-
-
-                  <td>
-                    {item.message}
-                  </td>
-
-
-                  <td>
-                    {new Date(item.createdAt).toLocaleDateString()}
-                  </td>
-
-
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan="3">Loading...</td>
                 </tr>
+              ) : dashboard.recentFeedbacks.length === 0 ? (
+                <tr>
+                  <td colSpan="3">No feedback found.</td>
+                </tr>
+              ) : (
+                dashboard.recentFeedbacks.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.user?.username}</td>
 
+                    <td className="message-cell">
+                      {item.message}
+                    </td>
 
-              ))
-
-
-            )
-
-
-          }
-
-
-          </tbody>
-
-
-        </table>
-
-
+                    <td>
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-
-
-
-
     </div>
-
   );
-
 }
-
 
 export default Dashboard;
