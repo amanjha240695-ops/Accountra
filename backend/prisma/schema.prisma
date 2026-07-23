@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -8,46 +9,26 @@ datasource db {
 }
 
 model User {
-  id          Int     @id @default(autoincrement())
-  username    String  @unique
-  email       String  @unique
-  phoneNumber String? @unique
+  id          Int        @id @default(autoincrement())
+  username    String     @unique
+  email       String     @unique
+  phoneNumber String?    @unique
   password    String
+  role        String     @default("user") // NEW FIELD
 
-  // New Fields
-  role      String    @default("USER")
-  lastLogin DateTime?
+  feedbacks   Feedback[]
 
-  // Relations
-  feedbacks    Feedback[]
-  loginHistory LoginHistory[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Feedback {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  message   String
+  rating    Int?
 
-  message String
-
-  rating Int?
-
-  userId Int
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-}
-
-model LoginHistory {
-  id Int @id @default(autoincrement())
-
-  userId Int
-
-  loginAt DateTime @default(now())
-
-  ipAddress String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
