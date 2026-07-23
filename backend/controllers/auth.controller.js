@@ -115,23 +115,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // Update last login
-    await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        lastLogin: new Date(),
-      },
-    });
-
-    // Save login history
-    await prisma.loginHistory.create({
-      data: {
-        userId: user.id,
-        ipAddress: req.ip || "Unknown",
-      },
-    });
 
     // Create JWT Token
  const token = jwt.sign(
