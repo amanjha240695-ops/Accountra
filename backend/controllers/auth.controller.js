@@ -44,21 +44,21 @@ const registerUser = async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
-  // Convert empty phone number to null
-const normalizedPhone =
-  phoneNumber && phoneNumber.trim() !== ""
-    ? phoneNumber.trim()
-    : null;
+    // Convert empty phone number to null
+    const normalizedPhone =
+      phoneNumber && phoneNumber.trim() !== ""
+        ? phoneNumber.trim()
+        : null;
 
-const user = await prisma.user.create({
-  data: {
-    username,
-    email,
-    phoneNumber: normalizedPhone,
-    password: hashedPassword,
-  },
-});
+    // Create user
+    const user = await prisma.user.create({
+      data: {
+        username,
+        email,
+        phoneNumber: normalizedPhone,
+        password: hashedPassword,
+      },
+    });
 
     res.status(201).json({
       success: true,
@@ -88,7 +88,7 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check fields
+    // Check required fields
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -121,50 +121,32 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // Update last login
-    await prisma.user.update({
-      where: {
+    // Generate JWT Token
+    const token = jwt.sign(
+      {
         id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
       },
-      data: {
-        lastLogin: new Date(),
-      },
-    });
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
 
-    // Save login history
-    await prisma.loginHistory.create({
-      data: {
-        userId: user.id,
-        ipAddress: req.ip || "Unknown",
-      },
-    });
-
-    // Create JWT Token
- const token = jwt.sign(
-  {
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    role: user.role,
-  },
-  process.env.JWT_SECRET,
-  {
-    expiresIn: "7d",
-  }
-);
-    // Response
+    // Send response
     res.status(200).json({
       success: true,
       message: "Login successful.",
       token,
-          user: {
+      user: {
         id: user.id,
         username: user.username,
         email: user.email,
-        role: user.role
-    }
-});
- 
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error("LOGIN ERROR:", error);
 
