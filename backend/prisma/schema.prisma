@@ -16,8 +16,6 @@ model User {
   password    String
   role        String     @default("user") // NEW FIELD
 
-   // Last login timestamp (optional until the user logs in)
-  lastLogin   DateTime?
 
   feedbacks   Feedback[]
 

@@ -59,7 +59,13 @@ const getDashboard = async (req, res) => {
 
     });
 
-
+console.log("Dashboard Data:", {
+  totalUsers,
+  totalFeedbacks,
+  totalLogins,
+  recentUsers,
+  recentFeedbacks,
+});
     res.status(200).json({
 
       success: true,
@@ -78,13 +84,12 @@ const getDashboard = async (req, res) => {
 
 
   } catch(error) {
+console.error("Dashboard Error:", error);
 
-    res.status(500).json({
-
-      success:false,
-      message:error.message,
-
-    });
+res.status(500).json({
+  success: false,
+  message: error.message,
+});
 
   }
 
